@@ -10,15 +10,62 @@ jobs:
   tar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Init Env
+        run : |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          sudo timedatectl set-timezone "Asia/Shanghai"
+
+      - name: Compiling modules
+        run : |
+          function build() {
+            TOOLKITVER=${1:-latest}
+            PLATFORM=${2:-}
+            KERNELVER=${3:-}
+
+            DIR="${KERNELVER:0:1}.x"
+            [ ! -d "${PWD}/src/${DIR}" ] && continue
+            mkdir -p "/tmp/${PLATFORM}-${KERNELVER}"
+            chmod a+rw "/tmp/${PLATFORM}-${KERNELVER}"
+            docker run --rm -t -v "${PWD}/src/${DIR}":/input -v "/tmp/${PLATFORM}-${KERNELVER}":/output \
+              fbelavenuto/syno-compiler:${TOOLKITVER} compile-module ${PLATFORM}
+            for M in `ls /tmp/${PLATFORM}-${KERNELVER}`; do
+                cp -a /tmp/${PLATFORM}-${KERNELVER} "${PWD}/"
+            done
+            rm -rf /tmp/${PLATFORM}-${KERNELVER}
+
+          }
+
+          build 7.1 bromolow 3.10.108
+          build 7.1 apollolake 4.4.180
+          build 7.1 broadwell 4.4.180
+          build 7.1 broadwellnk 4.4.180
+          build 7.1 denverton 4.4.180
+          build 7.1 geminilake 4.4.180
+          build 7.1 v1000 4.4.180
+          build 7.1 r1000 4.4.180  
+          build 7.1 epyc7002 5.10.55 
+
+          # build 7.2 bromolow 3.10.108
+          build 7.2 apollolake 4.4.302
+          build 7.2 broadwell 4.4.302
+          build 7.2 broadwellnk 4.4.302
+          build 7.2 denverton 4.4.302
+          build 7.2 geminilake 4.4.302
+          build 7.2 v1000 4.4.302
+          build 7.2 r1000 4.4.302  
+          # build 7.1 epyc7002 5.10.55 
 
       - name: Tar modules
         run: |
           for D in `ls -d *-*`; do
-            (cd ${D} && tar caf ../${D}.tgz *.ko)
+            (cd ${D} && tar caf ${D}.tgz *.ko)
           done
-          (cd firmware && tar caf ../firmware.tgz *)
-
+          (cd firmware && tar caf firmware.tgz *)
+      
       # Publish a release if is a tag
       - name: Release
         uses: softprops/action-gh-release@v1

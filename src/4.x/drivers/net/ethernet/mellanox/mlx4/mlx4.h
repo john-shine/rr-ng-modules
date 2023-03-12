@@ -161,6 +161,9 @@ enum mlx4_res_tracker_free_type {
 	RES_TR_FREE_STRUCTS_ONLY,
 };
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 4, 107)
+#define MLX4_INTERFACE_STATE_NOWAIT	 (1 << 2)
+#endif
 /*
  *Virtual HCR structures.
  * mlx4_vhcr is the sw representation, in machine endianness
