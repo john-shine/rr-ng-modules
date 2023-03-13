@@ -1,4 +1,4 @@
-name: Tar modules
+name: build modules
 
 on:
   release:
@@ -48,7 +48,7 @@ jobs:
           build 7.1 v1000 4.4.180
           build 7.1 r1000 4.4.180  
           build 7.1 epyc7002 5.10.55 
-
+          
           # build 7.2 bromolow 3.10.108
           build 7.2 apollolake 4.4.302
           build 7.2 broadwell 4.4.302
@@ -59,13 +59,36 @@ jobs:
           build 7.2 r1000 4.4.302  
           # build 7.1 epyc7002 5.10.55 
 
+      - name: firmware
+        run: |
+          SOURCE=/tmp/linux-firmware
+          git clone https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git ${SOURCE}
+
+          while read L; do
+            FN="${SOURCE}/${L}"
+            if [ -e "${FN}" ]; then
+              mkdir -p "`dirname firmware/${L}`"
+              cp "${FN}" "firmware/${L}"
+            else
+              echo "Missing ${FN}"
+            fi
+          done < <(find ./ -name \*.ko -exec sh -c '/sbin/modinfo {} | grep ^firmware' \; | awk '{print$2}')
+
       - name: Tar modules
         run: |
+          ls -al
           for D in `ls -d *-*`; do
-            (cd ${D} && tar caf ${D}.tgz *.ko)
+            tar caf ${D}.tgz -C ${D} .
           done
-          (cd firmware && tar caf firmware.tgz *)
-      
+          tar caf firmware.tgz -C firmware .
+
+      - name: Upload to Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: modules
+          path: |
+            *.tgz
+
       # Publish a release if is a tag
       - name: Release
         uses: softprops/action-gh-release@v1
