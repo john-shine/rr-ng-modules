@@ -88,7 +88,7 @@ int rtl8125_get_rxnfc(struct net_device *dev, struct ethtool_rxnfc *cmd,
         struct rtl8125_private *tp = netdev_priv(dev);
         int ret = -EOPNOTSUPP;
 
-        netif_info(tp, drv, tp->dev, "rss get rxnfc\n");
+        //netif_info(tp, drv, tp->dev, "rss get rxnfc\n");
 
         if (!(dev->features & NETIF_F_RXHASH))
                 return ret;
@@ -261,7 +261,7 @@ int rtl8125_set_rxnfc(struct net_device *dev, struct ethtool_rxnfc *cmd)
         struct rtl8125_private *tp = netdev_priv(dev);
         int ret = -EOPNOTSUPP;
 
-        netif_info(tp, drv, tp->dev, "rss set rxnfc\n");
+        //netif_info(tp, drv, tp->dev, "rss set rxnfc\n");
 
         if (!(dev->features & NETIF_F_RXHASH))
                 return ret;
