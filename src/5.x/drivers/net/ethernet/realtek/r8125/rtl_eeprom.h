@@ -2,10 +2,10 @@
 /*
 ################################################################################
 #
-# r8168 is the Linux device driver released for Realtek Gigabit Ethernet
+# r8125 is the Linux device driver released for Realtek 2.5Gigabit Ethernet
 # controllers with PCI-Express interface.
 #
-# Copyright(c) 2021 Realtek Semiconductor Corp. All rights reserved.
+# Copyright(c) 2022 Realtek Semiconductor Corp. All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
@@ -32,36 +32,22 @@
  *  US6,570,884, US6,115,776, and US6,327,625.
  ***********************************************************************************/
 
-#ifndef _LINUX_R8168_FIBER_H
-#define _LINUX_R8168_FIBER_H
+//EEPROM opcodes
+#define RTL_EEPROM_READ_OPCODE      06
+#define RTL_EEPROM_WRITE_OPCODE     05
+#define RTL_EEPROM_ERASE_OPCODE     07
+#define RTL_EEPROM_EWEN_OPCODE      19
+#define RTL_EEPROM_EWDS_OPCODE      16
 
-enum {
-        FIBER_MODE_NIC_ONLY = 0,
-        FIBER_MODE_RTL8168H_RTL8211FS,
-        FIBER_MODE_RTL8168H_MDI_SWITCH_RTL8211FS,
-        FIBER_MODE_MAX
-};
+#define RTL_CLOCK_RATE  3
 
-enum {
-        FIBER_STAT_NOT_CHECKED = 0,
-        FIBER_STAT_CONNECT,
-        FIBER_STAT_DISCONNECT,
-        FIBER_STAT_MAX
-};
-
-#define HW_FIBER_MODE_ENABLED(_M)        ((_M)->HwFiberModeVer > 0)
-
-
-
-void rtl8168_hw_init_fiber_nic(struct net_device *dev);
-void rtl8168_hw_fiber_nic_d3_para(struct net_device *dev);
-void rtl8168_hw_fiber_phy_config(struct net_device *dev);
-void rtl8168_hw_switch_mdi_to_fiber(struct net_device *dev);
-void rtl8168_hw_switch_mdi_to_nic(struct net_device *dev);
-unsigned int rtl8168_hw_fiber_link_ok(struct net_device *dev);
-void rtl8168_check_fiber_link_status(struct net_device *dev);
-void rtl8168_check_hw_fiber_mode_support(struct net_device *dev);
-void rtl8168_set_fiber_mode_software_variable(struct net_device *dev);
-
-
-#endif /* _LINUX_R8168_FIBER_H */
+void rtl8125_eeprom_type(struct rtl8125_private *tp);
+void rtl8125_eeprom_cleanup(struct rtl8125_private *tp);
+u16 rtl8125_eeprom_read_sc(struct rtl8125_private *tp, u16 reg);
+void rtl8125_eeprom_write_sc(struct rtl8125_private *tp, u16 reg, u16 data);
+void rtl8125_shift_out_bits(struct rtl8125_private *tp, int data, int count);
+u16 rtl8125_shift_in_bits(struct rtl8125_private *tp);
+void rtl8125_raise_clock(struct rtl8125_private *tp, u8 *x);
+void rtl8125_lower_clock(struct rtl8125_private *tp, u8 *x);
+void rtl8125_stand_by(struct rtl8125_private *tp);
+void rtl8125_set_eeprom_sel_low(struct rtl8125_private *tp);
