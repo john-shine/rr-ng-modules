@@ -5,16 +5,6 @@
 # See /LICENSE for more information.
 #
 
-## 注意：所有 include 组合会在 exclude 之后处理。 这允许你使用 include 添加回以前排除的组合。
-# version: [ 6.2, 7.1, 7.2 ]
-# platform: [ apollolake, broadwell, broadwellnk, bromolow, denverton, epyc7002, geminilake, purley, r1000, v1000 ]
-# exclude:
-#   - version: 7.1
-#     platform: broadwell
-# include:
-#   - version: "7.2"
-#     platform: "broadwell"
-
 name: Get official modules
 
 on:   
@@ -173,7 +163,7 @@ jobs:
           #getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_SA6400_42218.pat'
           #- version: 7.1 
           #  platform: geminilake
-          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS920%2B_42218.pat'
+          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS920%2B_42218.pat'  # DVA1622 have i915.so, but only supports 2nd to 9th gen.
           #- version: 7.1 
           #  platform: purley
           getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_FS6400_42218.pat'
@@ -207,7 +197,7 @@ jobs:
           getOfficialModules 'https://global.synologydownload.com/download/DSM/beta/7.2/64216/DSM_SA6400_64216.pat'
           #- version: 7.2 
           #  platform: geminilake
-          getOfficialModules 'https://global.synologydownload.com/download/DSM/beta/7.2/64216/DSM_DS920%2B_64216.pat'
+          getOfficialModules 'https://global.synologydownload.com/download/DSM/beta/7.2/64216/DSM_DS920%2B_64216.pat'  # DVA1622 have i915.so, but only supports 2nd to 9th gen.
           #- version: 7.2 
           #  platform: purley
           getOfficialModules 'https://global.synologydownload.com/download/DSM/beta/7.2/64216/DSM_FS6400_64216.pat'
