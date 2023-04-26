@@ -294,13 +294,18 @@ jobs:
 
       - name: firmware
         run: |
+          mkdir -p firmware
+
+          echo "copy 3rd modules"
+          PARTY3RD_PATH="${{ github.workspace }}/thirdparty/firmware"
+          cp -rf ${PARTY3RD_PATH}/* firmware/
+
           echo "extract all modules"
           for F in ./modules/*.tgz; do mkdir "${F%.tgz}" && tar -xzf "${F}" -C "${F%.tgz}"; done
-
+          
+          echo "get firmware"
           SOURCE=/tmp/linux-firmware
           git clone https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git ${SOURCE}
-
-          echo "get firmware"
           while read L; do
             FN="${SOURCE}/${L}"
             if [ -e "${FN}" ]; then
@@ -312,7 +317,8 @@ jobs:
           done < <(find ./modules -name \*.ko -exec sh -c '/sbin/modinfo {} | grep ^firmware' \; | awk '{print$2}')
 
           tar caf firmware.tgz -C firmware .
-          
+
+
       - name: Upload to Artifacts
         uses: actions/upload-artifact@v3
         with:
