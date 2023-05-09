@@ -267,10 +267,10 @@ jobs:
           OFFICIAL_PATH="${{ github.workspace }}/official/${{ matrix.platform }}-${{ env.KVER }}"
           PARTY3RD_PATH="${{ github.workspace }}/thirdparty/${{ matrix.platform }}-${{ env.KVER }}"
 
-          echo "copy official modules"
-          for M in `ls ${{ github.workspace }}/source/output`; do
-            [ -f ${OFFICIAL_PATH}/${M} ] && cp -f ${OFFICIAL_PATH}/${M} "${{ github.workspace }}/source/output"
-          done
+          # echo "copy official modules"
+          # for M in `ls ${{ github.workspace }}/source/output`; do
+          #   [ -f ${OFFICIAL_PATH}/${M} ] && cp -f ${OFFICIAL_PATH}/${M} "${{ github.workspace }}/source/output"
+          # done
 
           echo "copy 3rd modules"
           [ -d "${PARTY3RD_PATH}" ] && cp -rf "${PARTY3RD_PATH}/." "${{ github.workspace }}/source/output"
