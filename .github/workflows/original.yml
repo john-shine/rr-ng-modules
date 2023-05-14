@@ -169,7 +169,7 @@ jobs:
           getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DVA3221_42218.pat'
           ##- version: 7.1
           ##  platform: epyc7002
-          #getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_SA6400_42218.pat'
+          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.1.1/42962/DSM_SA6400_42962.pat'
           #- version: 7.1 
           #  platform: geminilake
           getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.0.1/42218/DSM_DS920%2B_42218.pat'  # DVA1622 have i915.so, but only supports 2nd to 9th gen.
@@ -203,7 +203,7 @@ jobs:
           getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_DVA3221_64551.pat'
           #- version: 7.2
           #  platform: epyc7002
-          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_SA6400_64551.pat'
+          #getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_SA6400_64551.pat'
           #- version: 7.2 
           #  platform: geminilake
           getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_DS920%2B_64551.pat'  # DVA1622 have i915.so, but only supports 2nd to 9th gen.
