@@ -19,7 +19,7 @@ endif
 
 obj-$(CONFIG_FB_CFB_FILLRECT)  += cfbfillrect.o
 obj-$(CONFIG_FB_CFB_COPYAREA)  += cfbcopyarea.o
-obj-$(CONFIG_FB_CFB_IMAGEBLT) += cfbimgblt.o
+obj-$(CONFIG_FB_CFB_IMAGEBLT)  += cfbimgblt.o
 #obj-$(CONFIG_FB_SYS_FILLRECT)  += sysfillrect.o
 #obj-$(CONFIG_FB_SYS_COPYAREA)  += syscopyarea.o
 #obj-$(CONFIG_FB_SYS_IMAGEBLIT) += sysimgblt.o
