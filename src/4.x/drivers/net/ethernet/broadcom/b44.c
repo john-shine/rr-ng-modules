@@ -2263,6 +2263,8 @@ static int b44_register_phy_one(struct b44 *bp)
 	mii_bus->parent = sdev->dev;
 	mii_bus->phy_mask = ~(1 << bp->phy_addr);
 	snprintf(mii_bus->id, MII_BUS_ID_SIZE, "%x", instance);
+#if defined(CONFIG_SYNO_MDIOBUS)
+#else /* CONFIG_SYNO_MDIOBUS*/
 	mii_bus->irq = kmalloc(sizeof(int) * PHY_MAX_ADDR, GFP_KERNEL);
 	if (!mii_bus->irq) {
 		dev_err(sdev->dev, "mii_bus irq allocation failed\n");
@@ -2271,7 +2273,7 @@ static int b44_register_phy_one(struct b44 *bp)
 	}
 
 	memset(mii_bus->irq, PHY_POLL, sizeof(int) * PHY_MAX_ADDR);
-
+#endif /* CONFIG_SYNO_MDIOBUS*/
 	bp->mii_bus = mii_bus;
 
 	err = mdiobus_register(mii_bus);
@@ -2279,8 +2281,11 @@ static int b44_register_phy_one(struct b44 *bp)
 		dev_err(sdev->dev, "failed to register MII bus\n");
 		goto err_out_mdiobus_irq;
 	}
-
+#if defined(CONFIG_SYNO_MDIOBUS)
+	if (!mdiobus_is_registered_device(bp->mii_bus, bp->phy_addr) &&
+#else /* CONFIG_SYNO_MDIOBUS*/
 	if (!bp->mii_bus->phy_map[bp->phy_addr] &&
+#endif /* CONFIG_SYNO_MDIOBUS*/
 	    (sprom->boardflags_lo & (B44_BOARDFLAG_ROBO | B44_BOARDFLAG_ADM))) {
 
 		dev_info(sdev->dev,
@@ -2313,11 +2318,16 @@ static int b44_register_phy_one(struct b44 *bp)
 
 	bp->phydev = phydev;
 	bp->old_link = 0;
+#if defined(CONFIG_SYNO_MDIOBUS)
+	bp->phy_addr = phydev->mdio.addr;
+
+	phy_attached_info(phydev);
+#else /* CONFIG_SYNO_MDIOBUS*/
 	bp->phy_addr = phydev->addr;
 
 	dev_info(sdev->dev, "attached PHY driver [%s] (mii_bus:phy_addr=%s)\n",
 		 phydev->drv->name, dev_name(&phydev->dev));
-
+#endif /* CONFIG_SYNO_MDIOBUS*/
 	return 0;
 
 err_out_mdiobus_unregister:
