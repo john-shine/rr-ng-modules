@@ -7,6 +7,7 @@
 
 #undef TRACE_SYSTEM
 #define TRACE_SYSTEM netvsc
+#define TRACE_INCLUDE_PATH .
 #define TRACE_INCLUDE_FILE netvsc_trace
 
 TRACE_DEFINE_ENUM(RNDIS_MSG_PACKET);
