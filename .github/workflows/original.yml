@@ -191,40 +191,40 @@ jobs:
 
           #- version: 7.2 
           #  platform: apollolake
-          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_DS918%2B_64551.pat'
+          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64570/DSM_DS918%2B_64570.pat'
           #- version: 7.2
           #  platform: braswell
-          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_DS916%2B_64551.pat'
+          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64570/DSM_DS916%2B_64570.pat'
           #- version: 7.2
           #  platform: broadwell
-          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_DS3617xs_64551.pat'
+          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64570/DSM_DS3617xs_64570.pat'
           #- version: 7.2 
           #  platform: broadwellnk
-          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_DS3622xs%2B_64551.pat'
+          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64570/DSM_DS3622xs%2B_64570.pat'
           ##- version: 7.2 
           ##  platform: bromolow
-          #getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_DS3615xs_64551.pat'
+          #getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64570/DSM_DS3615xs_64570.pat'
           #- version: 7.2
           #  platform: denverton
-          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_DVA3221_64551.pat'
+          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64570/DSM_DVA3221_64570.pat'
           #- version: 7.2
           #  platform: epyc7002
-          #getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_SA6400_64551.pat'
+          #getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64570/DSM_SA6400_64570.pat'
           #- version: 7.2 
           #  platform: geminilake
-          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_DVA1622_64551.pat'  # DVA1622 have i915.ko, but only supports 2nd to 9th gen.
+          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64570/DSM_DVA1622_64570.pat'  # DVA1622 have i915.ko, but only supports 2nd to 9th gen.
           #- version: 7.2 
           #  platform: purley
-          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_FS6400_64551.pat'
+          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64570/DSM_FS6400_64570.pat'
           #- version: 7.2
           #  platform: r1000
-          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_DS923%2B_64551.pat'
+          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64570/DSM_DS923%2B_64570.pat'
           #- version: 7.2
           #  platform: v1000
-          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_DS1621%2B_64551.pat'
+          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64570/DSM_DS1621%2B_64570.pat'
           #- version: 7.2
           #  platform: kvmx64
-          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64551/DSM_VirtualDSM_64551.pat'
+          getOfficialModules 'https://global.synologydownload.com/download/DSM/release/7.2/64570/DSM_VirtualDSM_64570.pat'
 
       - name: Check and Push
         run: |
