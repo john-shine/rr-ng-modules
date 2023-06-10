@@ -185,7 +185,7 @@ jobs:
 
           # I don't want this either (- -!)
           if [ "${{ matrix.platform }}" == "v1000" ] || [ "${{ matrix.platform }}" == "r1000" ]; then
-          sed -i "1i #define CONFIG_SYNO_MDIOBUS" ${ROOT_PATH}/source/input/drivers/net/ethernet/broadcom/b44.c ${ROOT_PATH}/source/input/drivers/net/ethernet/broadcom/tg3.c
+          sed -i "1i #define CONFIG_SYNO_MDIOBUS" ${ROOT_PATH}/source/input/drivers/net/ethernet/broadcom/b44.c ${ROOT_PATH}/source/input/drivers/net/ethernet/broadcom/tg3.c ${ROOT_PATH}/source/input/drivers/net/phy/realtek.c
           fi
 
           sudo cp -a ${ROOT_PATH}/source ${ROOT_PATH}/build_env/ds.${{ matrix.platform }}-${{ matrix.version }}/
