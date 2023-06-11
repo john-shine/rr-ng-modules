@@ -5378,7 +5378,6 @@ static void rtl8125_gset_xmii(struct net_device *dev,
         ethtool_convert_legacy_u32_to_link_mode(cmd->link_modes.lp_advertising,
                                                 lpa_adv);
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(5,0,0)
-#ifndef ENABLE_LEGACY_2500baseX
         if (supported & SUPPORTED_2500baseX_Full) {
                 linkmode_mod_bit(ETHTOOL_LINK_MODE_2500baseX_Full_BIT,
                                  cmd->link_modes.supported, 0);
@@ -5391,7 +5390,6 @@ static void rtl8125_gset_xmii(struct net_device *dev,
                 linkmode_mod_bit(ETHTOOL_LINK_MODE_2500baseT_Full_BIT,
                                  cmd->link_modes.advertising, 1);
         }
-#endif
         if (HW_SUPP_PHY_LINK_SPEED_5000M(tp)) {
                 linkmode_mod_bit(ETHTOOL_LINK_MODE_5000baseT_Full_BIT,
                                  cmd->link_modes.supported, 1);
@@ -5399,14 +5397,12 @@ static void rtl8125_gset_xmii(struct net_device *dev,
                                  cmd->link_modes.advertising, tp->phy_2500_ctrl_reg & RTK_ADVERTISE_5000FULL);
         }
         if (report_lpa) {
-#ifndef ENABLE_LEGACY_2500baseX
                 if (lpa_adv & ADVERTISED_2500baseX_Full) {
                         linkmode_mod_bit(ETHTOOL_LINK_MODE_2500baseX_Full_BIT,
                                          cmd->link_modes.lp_advertising, 0);
                         linkmode_mod_bit(ETHTOOL_LINK_MODE_2500baseT_Full_BIT,
                                          cmd->link_modes.lp_advertising, 1);
                 }
-#endif
                 if (status_2500 & RTK_LPA_ADVERTISE_5000FULL)
                         linkmode_mod_bit(ETHTOOL_LINK_MODE_5000baseT_Full_BIT,
                                          cmd->link_modes.lp_advertising, 1);
@@ -16722,6 +16718,8 @@ rtl8125_rx_interrupt(struct net_device *dev,
 
                 skb->protocol = eth_type_trans(skb, dev);
 
+                total_rx_bytes += skb->len;
+
                 if (skb->pkt_type == PACKET_MULTICAST)
                         total_rx_multicast_packets++;
 
@@ -16731,7 +16729,6 @@ rtl8125_rx_interrupt(struct net_device *dev,
 #if LINUX_VERSION_CODE < KERNEL_VERSION(4,11,0)
                 dev->last_rx = jiffies;
 #endif //LINUX_VERSION_CODE < KERNEL_VERSION(4,11,0)
-                total_rx_bytes += skb->len;
                 total_rx_packets++;
 
 #ifdef ENABLE_PAGE_REUSE
