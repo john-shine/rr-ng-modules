@@ -104,10 +104,10 @@ jobs:
             fi
 
             echo "extract ${filepath}/rd.gz"
-            rdpath=`realpath ${filepath}/rd.gz`
-            rdpath=${rdpath%%\.*}
+            rdfile=`realpath ${filepath}/hda1.tgz`  # rdfile=`realpath ${filepath}/rd.gz`
+            rdpath=${rdfile%%\.*}
             mkdir -p "${rdpath}"
-            (cd "${rdpath}"; xz -dc < "${rdpath}.gz" | cpio -idm) >/dev/null 2>&1 || true
+            (cd "${rdpath}"; xz -dc < "${rdfile}" | cpio -idm) >/dev/null 2>&1 || true
             
             plat="`grep unique "${filepath}/VERSION" | sed -r 's/.*_(.*)_.*/\1/'`"
             kver="`file "${filepath}/zImage" | awk '{printf $9}' | sed 's/+//g'`"
