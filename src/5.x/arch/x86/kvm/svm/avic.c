@@ -21,10 +21,10 @@
 
 #include <asm/irq_remapping.h>
 
-#include "trace.h"
-#include "lapic.h"
-#include "x86.h"
-#include "irq.h"
+#include "../trace.h"
+#include "../lapic.h"
+#include "../x86.h"
+#include "../irq.h"
 #include "svm.h"
 
 /* enable / disable AVIC */

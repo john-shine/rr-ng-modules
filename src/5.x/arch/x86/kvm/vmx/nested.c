@@ -6,13 +6,13 @@
 #include <asm/debugreg.h>
 #include <asm/mmu_context.h>
 
-#include "cpuid.h"
-#include "hyperv.h"
-#include "mmu.h"
+#include "../cpuid.h"
+#include "../hyperv.h"
+#include "../mmu.h"
 #include "nested.h"
-#include "pmu.h"
-#include "trace.h"
-#include "x86.h"
+#include "../pmu.h"
+#include "../trace.h"
+#include "../x86.h"
 
 static bool __read_mostly enable_shadow_vmcs = 1;
 module_param_named(enable_shadow_vmcs, enable_shadow_vmcs, bool, S_IRUGO);

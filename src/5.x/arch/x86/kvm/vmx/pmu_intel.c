@@ -12,11 +12,11 @@
 #include <linux/kvm_host.h>
 #include <linux/perf_event.h>
 #include <asm/perf_event.h>
-#include "x86.h"
-#include "cpuid.h"
-#include "lapic.h"
+#include "../x86.h"
+#include "../cpuid.h"
+#include "../lapic.h"
 #include "nested.h"
-#include "pmu.h"
+#include "../pmu.h"
 
 #define MSR_PMC_FULL_WIDTH_BIT      (MSR_IA32_PMC0 - MSR_IA32_PERFCTR0)
 

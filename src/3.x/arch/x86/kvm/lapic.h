@@ -1,7 +1,7 @@
 #ifndef __KVM_X86_LAPIC_H
 #define __KVM_X86_LAPIC_H
 
-#include "iodev.h"
+#include "../../../virt/kvm/iodev.h"
 
 #include <linux/kvm_host.h>
 

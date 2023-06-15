@@ -8,7 +8,7 @@
 #include "evmcs.h"
 #include "vmcs.h"
 #include "vmx.h"
-#include "trace.h"
+#include "../trace.h"
 
 DEFINE_STATIC_KEY_FALSE(enable_evmcs);
 

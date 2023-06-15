@@ -30,7 +30,7 @@
 #include <asm/iosapic.h>
 #endif
 
-#include "irq.h"
+#include "../../arch/x86/kvm/irq.h"
 
 #include "ioapic.h"
 

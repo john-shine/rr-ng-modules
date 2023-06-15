@@ -4,9 +4,9 @@
 #include <asm/irq_remapping.h>
 #include <asm/cpu.h>
 
-#include "lapic.h"
+#include "../lapic.h"
 #include "posted_intr.h"
-#include "trace.h"
+#include "../trace.h"
 #include "vmx.h"
 
 /*

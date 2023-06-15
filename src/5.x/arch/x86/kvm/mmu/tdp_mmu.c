@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0
 
-#include "mmu.h"
+#include "../mmu.h"
 #include "mmu_internal.h"
 #include "mmutrace.h"
 #include "tdp_iter.h"

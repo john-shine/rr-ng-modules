@@ -5,7 +5,7 @@
 
 #include <linux/kvm_host.h>
 
-#include "mmu.h"
+#include "../mmu.h"
 
 /*
  * A TDP iterator performs a pre-order walk over a TDP paging structure.

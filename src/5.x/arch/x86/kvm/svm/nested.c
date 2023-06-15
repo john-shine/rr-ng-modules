@@ -21,12 +21,12 @@
 #include <asm/msr-index.h>
 #include <asm/debugreg.h>
 
-#include "kvm_emulate.h"
-#include "trace.h"
-#include "mmu.h"
-#include "x86.h"
-#include "cpuid.h"
-#include "lapic.h"
+#include "../kvm_emulate.h"
+#include "../trace.h"
+#include "../mmu.h"
+#include "../x86.h"
+#include "../cpuid.h"
+#include "../lapic.h"
 #include "svm.h"
 
 static void nested_svm_inject_npf_exit(struct kvm_vcpu *vcpu,

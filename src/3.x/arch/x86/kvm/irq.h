@@ -27,8 +27,8 @@
 #include <linux/kvm_host.h>
 #include <linux/spinlock.h>
 
-#include "iodev.h"
-#include "ioapic.h"
+#include "../../../virt/kvm/iodev.h"
+#include "../../../virt/kvm/ioapic.h"
 #include "lapic.h"
 
 #define PIC_NUM_PINS 16

@@ -19,7 +19,7 @@
 #include <linux/slab.h>
 #include <linux/namei.h>
 #include <linux/fs.h>
-#include "irq.h"
+#include "../../arch/x86/kvm/irq.h"
 
 static struct kvm_assigned_dev_kernel *kvm_find_assigned_dev(struct list_head *head,
 						      int assigned_dev_id)

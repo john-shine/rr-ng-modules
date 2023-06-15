@@ -50,22 +50,25 @@
 #include <asm/vmx.h>
 
 #include "capabilities.h"
-#include "cpuid.h"
+#include "../cpuid.h"
 #include "evmcs.h"
-#include "irq.h"
-#include "kvm_cache_regs.h"
-#include "lapic.h"
-#include "mmu.h"
+#include "../irq.h"
+#include "../kvm_cache_regs.h"
+#include "../lapic.h"
+#include "../mmu.h"
 #include "nested.h"
-#include "pmu.h"
-#include "trace.h"
+#include "../pmu.h"
+#include "../trace.h"
 #include "vmcs.h"
 #include "vmcs12.h"
 #include "vmx.h"
-#include "x86.h"
+#include "../x86.h"
 
 MODULE_AUTHOR("Qumranet");
 MODULE_LICENSE("GPL");
+
+enum l1tf_mitigations l1tf_mitigation __ro_after_init = L1TF_MITIGATION_FLUSH;
+EXPORT_SYMBOL_GPL(l1tf_mitigation);
 
 #ifdef MODULE
 static const struct x86_cpu_id vmx_cpu_id[] = {

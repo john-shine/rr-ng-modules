@@ -15,68 +15,65 @@
 #   - version: "7.2"
 #     platform: "broadwell"
 
-name: Build modules
+name: Update kvm
 
 on:  
-  release:
-    types: [published]
-
   workflow_dispatch:
     inputs:
-      version:
-        description: 'format %y.%-m.$i or auto'
-        required: false
-        type: string
+      push: 
+        description: 'push'
+        default: false
+        type: boolean
 
 jobs:
-  build:
+  kvm:
     strategy:
       matrix:
         include:
-          - version: 6.2 
-            platform: apollolake
-          - version: 6.2 
-            platform: braswell
-          - version: 6.2 
-            platform: broadwell
-          - version: 6.2 
-            platform: broadwellnk
-          - version: 6.2 
-            platform: bromolow
-          - version: 6.2 
-            platform: denverton
-          # checkout 6.2.4
-          - version: 6.2 
-            platform: geminilake
-          # checkout 6.2.4
-          - version: 6.2 
-            platform: purley
-          # checkout 6.2.4
-          - version: 6.2 
-            platform: v1000 
-
-          - version: 7.1 
-            platform: apollolake
-          - version: 7.1
-            platform: braswell
-          - version: 7.1
-            platform: broadwell
-          - version: 7.1 
-            platform: broadwellnk
-          - version: 7.1 
-            platform: bromolow
-          - version: 7.1
-            platform: denverton
-          #- version: 7.1
-          #  platform: epyc7002
-          - version: 7.1 
-            platform: geminilake
-          - version: 7.1 
-            platform: purley
-          - version: 7.1
-            platform: r1000
-          - version: 7.1
-            platform: v1000
+          # - version: 6.2 
+          #   platform: apollolake
+          # - version: 6.2 
+          #   platform: braswell
+          # - version: 6.2 
+          #   platform: broadwell
+          # - version: 6.2 
+          #   platform: broadwellnk
+          # - version: 6.2 
+          #   platform: bromolow
+          # - version: 6.2 
+          #   platform: denverton
+          # # checkout 6.2.4
+          # - version: 6.2 
+          #   platform: geminilake
+          # # checkout 6.2.4
+          # - version: 6.2 
+          #   platform: purley
+          # # checkout 6.2.4
+          # - version: 6.2 
+          #   platform: v1000 
+          # 
+          # - version: 7.1 
+          #   platform: apollolake
+          # - version: 7.1
+          #   platform: braswell
+          # - version: 7.1
+          #   platform: broadwell
+          # - version: 7.1 
+          #   platform: broadwellnk
+          # - version: 7.1 
+          #   platform: bromolow
+          # - version: 7.1
+          #   platform: denverton
+          # #- version: 7.1
+          # #  platform: epyc7002
+          # - version: 7.1 
+          #   platform: geminilake
+          # - version: 7.1 
+          #   platform: purley
+          # - version: 7.1
+          #   platform: r1000
+          # - version: 7.1
+          #   platform: v1000
 
           - version: 7.2 
             platform: apollolake
@@ -198,14 +195,12 @@ jobs:
           sed -i 's/^CFLAGS=/#CFLAGS=/g; s/^CXXFLAGS=/#CXXFLAGS=/g' /env${BUILD_ARCH}.mak
           while read line; do if [ ${line:0:1} != "#" ]; then export ${line%%=*}="${line#*=}"; fi; done < /env${BUILD_ARCH}.mak
           cd /source/input
-          [ -z "`grep 'env.mak' Makefile`" ] && sed -i '1 i include /env.mak' Makefile
+          sed -i '1 i include /env.mak' arch/x86/kvm/Makefile
+          sed -i "s|#define TRACE_INCLUDE_PATH.*$|#define TRACE_INCLUDE_PATH ${PWD}/arch/x86/kvm|" arch/x86/kvm/trace.h arch/x86/kvm/mmutrace.h
+          sed -i "s|boot_cpu_data.x86_vendor != X86_VENDOR_AMD|false|" ${KSRC}/arch/x86/include/asm/virtext.h
 
-          if [ -f "defines.${{ matrix.platform }}" ]; then
-            PARMS+=" `cat "defines.${{ matrix.platform }}" | xargs`"
-          else
-            echo "[E] ${{ matrix.platform }}-${{ matrix.version }}"
-          fi
-          make -j`nproc` -C "${KSRC}" M="${PWD}" ${PARMS} modules
+          PARMS+="CONFIG_KVM=m CONFIG_KVM_INTEL=m CONFIG_KVM_AMD=m CONFIG_IRQ_BYPASS_MANAGER=m"
+          make -j`nproc` -C "${KSRC}" M="${PWD}/arch/x86/kvm" ${PARMS} modules
           while read F; do
             strip -g "${F}"
             echo "Copying `basename ${F}`"
@@ -269,36 +264,12 @@ jobs:
 
       - name: Tar to Artifacts
         run: |
-          OFFICIAL_PATH="${{ github.workspace }}/official/${{ matrix.platform }}-${{ env.KVER }}"
-          PARTY3RD_PATH="${{ github.workspace }}/thirdparty/${{ matrix.platform }}-${{ env.KVER }}"
-
-          # echo "copy official modules"
-          # for M in `ls ${{ github.workspace }}/source/output`; do
-          #   [ -f ${OFFICIAL_PATH}/${M} ] && cp -f ${OFFICIAL_PATH}/${M} "${{ github.workspace }}/source/output"
-          # done
-
-          echo "copy 3rd modules"
-          [ -d "${PARTY3RD_PATH}" ] && cp -rf "${PARTY3RD_PATH}/." "${{ github.workspace }}/source/output"
-
-          echo "check depends"
-          for M in `ls ${{ github.workspace }}/source/output`; do
-            depends=(`modinfo "${{ github.workspace }}/source/output/${M}" | grep depends: | awk -F: '{print $2}' | awk '$1=$1' | sed 's/,/ /g'`)
-            if [ ${#depends[*]} -gt 0 ]; then
-              for k in ${depends[@]}; do
-                if [ ! -f "${{ github.workspace }}/source/output/${k}.ko" ]; then
-                  [ -f "${OFFICIAL_PATH}/${k}.ko" ] && FLAG=O || FLAG=X
-                  echo "[W][${FLAG}] '${{ matrix.platform }}-${{ env.KVER }}' - '${M}' depends '${k}' does not exist."
-                fi
-              done
-            fi
-          done
-
           tar caf ${{ github.workspace }}/source/${{ matrix.platform }}-${{ env.KVER }}.tgz -C ${{ github.workspace }}/source/output .
 
       - name: Upload to Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: modules
+          name: kvm
           path: |
             ${{ github.workspace }}/source/*.tgz
             
@@ -306,101 +277,50 @@ jobs:
         run: |
           sudo rm -rf ${{ github.workspace }}/build_env/ds.${{ matrix.platform }}-${{ matrix.version }}/source/*
 
-
-  firmware:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout
-        uses: actions/checkout@main
-
-      - name: download to artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: modules
-          path: ./modules
-
-      - name: firmware
-        run: |
-          mkdir -p firmware
-
-          echo "copy 3rd modules"
-          PARTY3RD_PATH="${{ github.workspace }}/thirdparty/firmware"
-          cp -rf ${PARTY3RD_PATH}/* firmware/
-
-          echo "extract all modules"
-          for F in ./modules/*.tgz; do mkdir "${F%.tgz}" && tar -xzf "${F}" -C "${F%.tgz}"; done
-          
-          echo "get firmware"
-          SOURCE=/tmp/linux-firmware
-          git clone https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git ${SOURCE}
-          while read L; do
-            if [ -e "${SOURCE}/${L}" ]; then
-              mkdir -p "`dirname firmware/${L}`"
-              cp "${SOURCE}/${L}" "firmware/${L}"
-            else
-              [ -e "firmware/${L}" ] && echo "Used thirdparty ${L}" || echo "Missing ${L}"
-            fi
-          done < <(find ./modules -name \*.ko -exec sh -c '/sbin/modinfo {} | grep ^firmware' \; | awk '{print $2}')
-
-          tar caf firmware.tgz -C firmware .
-
-
-      - name: Upload to Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: modules
-          path: |
-            firmware.tgz
-
-
   release:
     runs-on: ubuntu-latest
-    needs: firmware
+    needs: kvm
+    if: inputs.push == true
     steps:
       - name: Checkout
         uses: actions/checkout@main
 
-      - name: Calculate version
+      - name: Init Env
         run: |
-          # Calculate version
-          VERSION=""
-          if [ ${{ github.event_name }} == 'release' -a ${{ github.ref_type }} == 'tag' ]; then
-            VERSION="${{ github.ref_name }}"
-          elif [ -n "${{ inputs.version }}" ]; then
-            if [ "`echo ${{ inputs.version }} | cut -d '.' -f 1,2`" = "`date +'%y.%-m'`" ]; then
-              VERSION="${{ inputs.version }}"
-            else
-              LATEST_TAG="`curl -skL "https://api.github.com/repos/${{ github.repository }}/releases/latest" | jq -r ".tag_name" 2>/dev/null`"
-              if [ -n "${LATEST_TAG}" -a "`echo ${LATEST_TAG} | cut -d '.' -f 1,2`" = "`date +'%y.%-m'`" ]; then  # format %y.%-m.$i
-                VERSION="`echo ${LATEST_TAG} | awk -F '.' '{$3=$3+1}1' OFS='.'`"
-              else
-                VERSION="`date +'%y.%-m'`.0"
-              fi
-            fi
-          else
-            VERSION=""
-          fi
-
-          echo "VERSION: ${VERSION}"
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          sudo timedatectl set-timezone "Asia/Shanghai" 
 
       - name: download to artifacts
-        if: env.VERSION != ''
         uses: actions/download-artifact@v3
         with:
-          name: modules
-          path: ./modules
+          name: kvm
+          path: ./artifacts
 
-      - name: Zip modules
-        if: env.VERSION != ''
+      - name: Check and Push
         run: |
-          echo "${{ env.VERSION }}" > "modules/VERSION"
-          zip -9 modules.zip -j modules/*
+          ls artifacts
+          for F in `ls artifacts/*.tgz`; do 
+            if echo ${F} | grep -qE "apollolake|braswell|broadwell|broadwellnk|bromolow|denverton|geminilake|purley"; then 
+              KVM="kvm-amd.ko"
+            else  # "epyc7002|r1000|v1000"
+              KVM="kvm-intel.ko"
+            fi
+            echo "Copy ${F}/${KVM}"
+            mkdir -p "thirdparty/`basename "$F" .tgz`/"
+            if tar -tf "${F}" | grep "${KVM}"; then
+              tar -xzvf "${F}" -C "thirdparty/`basename "$F" .tgz`/" ./${KVM}
+            else
+              echo "[W] Not ${KVM} in ${F}"
+            fi
+          done
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: env.VERSION != ''
-        with:
-          tag_name: ${{ env.VERSION }}
-          files: modules.zip
+          echo "Git push ..."
+          git pull
+          status=$(git status -s | grep -E 'thirdparty/' | awk '{printf " %s", $2}')
+          if [ -n "${status}" ]; then
+            git add ${status}
+            git commit -m "update $(date +%Y-%m-%d" "%H:%M:%S)"
+            git push -f
+          fi
+

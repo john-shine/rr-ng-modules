@@ -15,15 +15,15 @@
  *   Avi Kivity   <avi@qumranet.com>
  */
 
-#include "irq.h"
-#include "ioapic.h"
-#include "mmu.h"
+#include "../irq.h"
+#include "../ioapic.h"
+#include "../mmu.h"
 #include "mmu_internal.h"
 #include "tdp_mmu.h"
-#include "x86.h"
-#include "kvm_cache_regs.h"
-#include "kvm_emulate.h"
-#include "cpuid.h"
+#include "../x86.h"
+#include "../kvm_cache_regs.h"
+#include "../kvm_emulate.h"
+#include "../cpuid.h"
 #include "spte.h"
 
 #include <linux/kvm_host.h>
@@ -50,7 +50,7 @@
 #include <asm/io.h>
 #include <asm/vmx.h>
 #include <asm/kvm_page_track.h>
-#include "trace.h"
+#include "../trace.h"
 
 #include "paging.h"
 

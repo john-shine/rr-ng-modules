@@ -42,8 +42,8 @@
 #include <trace/events/kvm.h>
 
 #include "ioapic.h"
-#include "lapic.h"
-#include "irq.h"
+#include "../../arch/x86/kvm/lapic.h"
+#include "../../arch/x86/kvm/irq.h"
 
 #if 0
 #define ioapic_debug(fmt,arg...) printk(KERN_WARNING fmt,##arg)

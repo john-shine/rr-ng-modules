@@ -12,10 +12,10 @@
 #include <linux/types.h>
 #include <linux/kvm_host.h>
 #include <linux/perf_event.h>
-#include "x86.h"
-#include "cpuid.h"
-#include "lapic.h"
-#include "pmu.h"
+#include "../x86.h"
+#include "../cpuid.h"
+#include "../lapic.h"
+#include "../pmu.h"
 
 enum pmu_type {
 	PMU_TYPE_COUNTER = 0,

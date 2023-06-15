@@ -15,7 +15,7 @@
 #include <linux/pagemap.h>
 #include <linux/swap.h>
 
-#include "x86.h"
+#include "../x86.h"
 #include "svm.h"
 
 static int sev_flush_asids(void);

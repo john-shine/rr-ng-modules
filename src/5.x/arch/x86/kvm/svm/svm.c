@@ -2,12 +2,12 @@
 
 #include <linux/kvm_host.h>
 
-#include "irq.h"
-#include "mmu.h"
-#include "kvm_cache_regs.h"
-#include "x86.h"
-#include "cpuid.h"
-#include "pmu.h"
+#include "../irq.h"
+#include "../mmu.h"
+#include "../kvm_cache_regs.h"
+#include "../x86.h"
+#include "../cpuid.h"
+#include "../pmu.h"
 
 #include <linux/module.h>
 #include <linux/mod_devicetable.h>
@@ -38,7 +38,7 @@
 #include <asm/cpu_device_id.h>
 
 #include <asm/virtext.h>
-#include "trace.h"
+#include "../trace.h"
 
 #include "svm.h"
 
