@@ -1,3 +1,6 @@
+#ifndef MY_ABC_HERE
+#define MY_ABC_HERE
+#endif
 /*
  * drivers/net/phy/realtek.c
  *
@@ -124,10 +127,11 @@ static struct phy_driver realtek_drvs[] = {
 		.flags          = PHY_HAS_INTERRUPT,
 		.config_aneg    = &genphy_config_aneg,
 		.read_status    = &genphy_read_status,
-#if defined(CONFIG_SYNO_MDIOBUS)
-#else
+#if defined(MY_DEF_HERE)
+//do nothing
+#else /* MY_DEF_HERE */
 		.driver         = { .owner = THIS_MODULE,},
-#endif
+#endif /* MY_DEF_HERE */
 	}, {
 		.phy_id		= 0x001cc912,
 		.name		= "RTL8211B Gigabit Ethernet",
@@ -138,10 +142,11 @@ static struct phy_driver realtek_drvs[] = {
 		.read_status	= &genphy_read_status,
 		.ack_interrupt	= &rtl821x_ack_interrupt,
 		.config_intr	= &rtl8211b_config_intr,
-#if defined(CONFIG_SYNO_MDIOBUS)
-#else
+#if defined(MY_DEF_HERE)
+//do nothing
+#else /* MY_DEF_HERE */
 		.driver		= { .owner = THIS_MODULE,},
-#endif
+#endif /* MY_DEF_HERE */
 	}, {
 		.phy_id		= 0x001cc914,
 		.name		= "RTL8211DN Gigabit Ethernet",
@@ -154,10 +159,11 @@ static struct phy_driver realtek_drvs[] = {
 		.config_intr	= rtl8211e_config_intr,
 		.suspend	= genphy_suspend,
 		.resume		= genphy_resume,
-#if defined(CONFIG_SYNO_MDIOBUS)
-#else
+#if defined(MY_DEF_HERE)
+//do nothing
+#else /* MY_DEF_HERE */
 		.driver		= { .owner = THIS_MODULE,},
-#endif
+#endif /* MY_DEF_HERE */
 	}, {
 		.phy_id		= 0x001cc915,
 		.name		= "RTL8211E Gigabit Ethernet",
@@ -170,10 +176,11 @@ static struct phy_driver realtek_drvs[] = {
 		.config_intr	= &rtl8211e_config_intr,
 		.suspend	= genphy_suspend,
 		.resume		= genphy_resume,
-#if defined(CONFIG_SYNO_MDIOBUS)
-#else
+#if defined(MY_DEF_HERE)
+//do nothing
+#else /* MY_DEF_HERE */
 		.driver		= { .owner = THIS_MODULE,},
-#endif
+#endif /* MY_DEF_HERE */
 	}, {
 		.phy_id		= 0x001cc916,
 		.name		= "RTL8211F Gigabit Ethernet",
@@ -187,10 +194,11 @@ static struct phy_driver realtek_drvs[] = {
 		.config_intr	= &rtl8211f_config_intr,
 		.suspend	= genphy_suspend,
 		.resume		= genphy_resume,
-#if defined(CONFIG_SYNO_MDIOBUS)
-#else
+#if defined(MY_DEF_HERE)
+//do nothing
+#else /* MY_DEF_HERE */
 		.driver		= { .owner = THIS_MODULE },
-#endif
+#endif /* MY_DEF_HERE */
 	},
 };
 

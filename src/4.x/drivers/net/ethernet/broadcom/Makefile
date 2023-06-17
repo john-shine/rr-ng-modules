@@ -2,6 +2,14 @@
 # Makefile for the Broadcom network device drivers.
 #
 
+# for b44,tg3
+ifeq ($(CONFIG_V1000), y)
+	 EXTRA_CFLAGS+=-DMY_DEF_HERE
+endif
+ifeq ($(CONFIG_R1000), y)
+	 EXTRA_CFLAGS+=-DMY_DEF_HERE
+endif
+
 obj-$(CONFIG_B44) += b44.o
 #obj-$(CONFIG_BCM63XX_ENET) += bcm63xx_enet.o
 #obj-$(CONFIG_BCMGENET) += genet/

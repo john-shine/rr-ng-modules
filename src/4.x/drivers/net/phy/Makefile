@@ -1,5 +1,13 @@
 # Makefile for Linux PHY drivers
 
+# for phy, realtek
+ifeq ($(CONFIG_V1000), y)
+	 EXTRA_CFLAGS+=-DMY_DEF_HERE
+endif
+ifeq ($(CONFIG_R1000), y)
+	 EXTRA_CFLAGS+=-DMY_DEF_HERE
+endif
+
 libphy-objs			:= phy.o phy_device.o mdio_bus.o
 
 obj-$(CONFIG_PHYLIB)		+= libphy.o
