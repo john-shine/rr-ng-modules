@@ -196,9 +196,12 @@ jobs:
           while read line; do if [ ${line:0:1} != "#" ]; then export ${line%%=*}="${line#*=}"; fi; done < /env${BUILD_ARCH}.mak
           cd /source/input
           sed -i '1 i include /env.mak' arch/x86/kvm/Makefile
-          sed -i "s|#define TRACE_INCLUDE_PATH.*$|#define TRACE_INCLUDE_PATH ${PWD}/arch/x86/kvm|" arch/x86/kvm/trace.h arch/x86/kvm/mmutrace.h
           sed -i "s|boot_cpu_data.x86_vendor != X86_VENDOR_AMD|false|" ${KSRC}/arch/x86/include/asm/virtext.h
-
+          # Modify TRACE_INCLUDE_PATH of *trace.h
+          for F in `find ./ -type f -name *trace.h`; do
+            FILE_PATH=`realpath $(dirname ${F})`
+            sed -i "s|#define TRACE_INCLUDE_PATH.*$|#define TRACE_INCLUDE_PATH ${FILE_PATH}|" ${F}
+          done
           PARMS+="CONFIG_KVM=m CONFIG_KVM_INTEL=m CONFIG_KVM_AMD=m CONFIG_IRQ_BYPASS_MANAGER=m"
           make -j`nproc` -C "${KSRC}" M="${PWD}/arch/x86/kvm" ${PARMS} modules
           while read F; do
