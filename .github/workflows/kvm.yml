@@ -312,7 +312,7 @@ jobs:
             echo "Copy ${F}/${KVM}"
             mkdir -p "thirdparty/`basename "$F" .tgz`/"
             if tar -tf "${F}" | grep "${KVM}"; then
-              cp official/`basename "$F" .tgz`/kvm* thirdparty/`basename "$F" .tgz`/
+              cp official/`basename "$F" .tgz`/irqbypass.ko official/`basename "$F" .tgz`/kvm* thirdparty/`basename "$F" .tgz`/
               tar -xzvf "${F}" -C "thirdparty/`basename "$F" .tgz`/" ./${KVM}
             else
               echo "[W] Not ${KVM} in ${F}"
