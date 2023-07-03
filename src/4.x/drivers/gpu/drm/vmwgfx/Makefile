@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-2.0
 
-ifeq ($(CONFIG_FB_DEFERRED_IO), y)
+ifeq ($(CONFIG_DRM_VMWGFX), m)
 	EXTRA_CFLAGS += -DCONFIG_FB_DEFERRED_IO
 endif
 

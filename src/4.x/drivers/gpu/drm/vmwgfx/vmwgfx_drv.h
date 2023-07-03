@@ -34,7 +34,7 @@
 #include <drm/drm_hashtab.h>
 #include <drm/drm_auth.h>
 #include <linux/suspend.h>
-#include <drm/ttm/ttm_bo_driver.h>
+#include "../ttm/ttm_bo_driver.h"
 #include <drm/ttm/ttm_object.h>
 #include <drm/ttm/ttm_lock.h>
 #include <drm/ttm/ttm_execbuf_util.h>

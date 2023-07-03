@@ -1,10 +1,9 @@
 # SPDX-License-Identifier: GPL-2.0
-ifeq ($(CONFIG_FB_DEFERRED_IO), y)
-	EXTRA_CFLAGS += -DCONFIG_FB_DEFERRED_IO
+
+ifeq ($(CONFIG_DRM_VMWGFX), m)
+	EXTRA_CFLAGS += -DCONFIG_FB_DEFERRED_IO -DCONFIG_MAPPING_DIRTY_HELPERS
 endif
-ifeq ($(CONFIG_MAPPING_DIRTY_HELPERS), y)
-	EXTRA_CFLAGS += -DCONFIG_MAPPING_DIRTY_HELPERS
-endif
+
 vmwgfx-y := vmwgfx_execbuf.o vmwgfx_gmr.o vmwgfx_kms.o vmwgfx_drv.o \
 	    vmwgfx_fb.o vmwgfx_ioctl.o vmwgfx_resource.o vmwgfx_ttm_buffer.o \
 	    vmwgfx_fifo.o vmwgfx_irq.o vmwgfx_ldu.o vmwgfx_ttm_glue.o \

@@ -28,7 +28,7 @@ obj-$(CONFIG_FB_SYS_IMAGEBLIT) += sysimgblt.o
 #obj-$(CONFIG_FB_SVGALIB)       += svgalib.o
 #obj-$(CONFIG_FB_MACMODES)      += macmodes.o
 #obj-$(CONFIG_FB_DDC)           += fb_ddc.o
-ifeq ($(CONFIG_FB_DEFERRED_IO), y)
+ifeq ($(CONFIG_FB_DEFERRED_IO), m)
 	EXTRA_CFLAGS += -DCONFIG_FB_DEFERRED_IO
 endif
 obj-$(CONFIG_FB_DEFERRED_IO)   += fb_defio.o
