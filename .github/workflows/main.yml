@@ -67,8 +67,8 @@ jobs:
             platform: bromolow
           - version: 7.1
             platform: denverton
-          #- version: 7.1
-          #  platform: epyc7002
+          - version: 7.1
+            platform: epyc7002
           - version: 7.1 
             platform: geminilake
           - version: 7.1 
@@ -287,8 +287,11 @@ jobs:
               done
             fi
           done
-
-          tar caf ${{ github.workspace }}/source/${{ matrix.platform }}-${{ env.KVER }}.tgz -C ${{ github.workspace }}/source/output .
+          if [ "${{ matrix.platform }}" = "epyc7002" ]; then
+            tar caf ${{ github.workspace }}/source/${{ matrix.platform }}-${{ matrix.version }}-${{ env.KVER }}.tgz -C ${{ github.workspace }}/source/output .
+          else
+            tar caf ${{ github.workspace }}/source/${{ matrix.platform }}-${{ env.KVER }}.tgz -C ${{ github.workspace }}/source/output .
+          fi
 
       - name: Upload to Artifacts
         uses: actions/upload-artifact@v3
