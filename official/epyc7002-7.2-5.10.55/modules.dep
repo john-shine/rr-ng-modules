@@ -42,6 +42,7 @@ nfnetlink.ko:
 nf_defrag_ipv4.ko:
 usb-common.ko:
 iptable_mangle.ko: ip_tables.ko x_tables.ko
+bnxt_en.ko:
 i2c-algo-bit.ko:
 ip6table_mangle.ko: ip6_tables.ko ipv6.ko x_tables.ko
 target_core_iblock.ko: target_core_mod.ko
@@ -82,6 +83,7 @@ ghash-generic.ko: gf128mul.ko
 bridge.ko: stp.ko llc.ko ipv6.ko
 vfio-pci.ko: irqbypass.ko vfio_virqfd.ko vfio.ko
 hwmon-vid.ko:
+dm-crypt.ko: dm-mod.ko
 loop.ko:
 mlx5_core.ko:
 psnap.ko: llc.ko
@@ -133,6 +135,7 @@ glue_helper.ko:
 ib_isert.ko: rdma_cm.ko iw_cm.ko ib_cm.ko iscsi_target_mod.ko ib_core.ko target_core_mod.ko ipv6.ko
 vhost_iotlb.ko:
 xfrm_user.ko: xfrm_algo.ko
+uas.ko: usb-storage.ko usbcore.ko usb-common.ko
 xxhash_generic.ko:
 cpufreq_performance.ko:
 mpls_gso.ko:
@@ -179,6 +182,7 @@ xt_limit.ko: x_tables.ko
 authencesn.ko: authenc.ko
 xhci-hcd.ko: usbcore.ko usb-common.ko
 nf_conntrack.ko: nf_defrag_ipv6.ko nf_defrag_ipv4.ko
+leds-atmega1608-seg7.ko:
 stp.ko: llc.ko
 aesni-intel.ko: glue_helper.ko crypto_simd.ko cryptd.ko
 netconsole.ko:
@@ -196,6 +200,7 @@ ib_cm.ko: ib_core.ko ipv6.ko
 rodsp_ep.ko:
 xfrm_ipcomp.ko: xfrm_algo.ko
 dm-raid.ko: raid456.ko async_raid6_recov.ko async_memcpy.ko async_pq.ko async_xor.ko async_tx.ko xor.ko raid6_pq.ko dm-mod.ko
+essiv.ko: authenc.ko
 xhci-pci.ko: xhci-hcd.ko usbcore.ko usb-common.ko
 r8168.ko:
 mlx5_ib.ko: mlx5_core.ko ib_core.ko ipv6.ko

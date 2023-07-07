@@ -2612,6 +2612,7 @@ alias symbol:drm_crtc_cleanup drm
 alias symbol:rpc_create sunrpc
 alias symbol:ZSTD_maxCLevel zstd_compress
 alias symbol:drm_gem_object_release drm
+alias symbol:try_wakeup_waiting_microp synobios
 alias symbol:drm_gem_fb_get_obj drm_kms_helper
 alias symbol:iscsi_tcp_recv_segment_is_hdr libiscsi_tcp
 alias symbol:drm_dp_mst_get_vcpi_slots drm_kms_helper

@@ -70,6 +70,7 @@ alias symbol:nf_conntrack_hash nf_conntrack
 alias symbol:macvlan_dellink macvlan
 alias symbol:nfs_free_client nfs
 alias symbol:iscsi_host_add libiscsi
+alias symbol:cache_life_add target_core_mod
 alias symbol:fat_free_clusters fat
 alias symbol:cryptd_skcipher_child cryptd
 alias symbol:inet6_csk_addr2sockaddr ipv6
@@ -492,6 +493,7 @@ alias symbol:snd_info_register snd
 alias symbol:dm_snap_origin dm_snapshot
 alias symbol:rpc_setbufsize sunrpc
 alias symbol:vhost_add_used_and_signal vhost
+alias symbol:cache_lock target_core_mod
 alias symbol:hid_input_report hid
 alias symbol:transport_generic_request_failure target_core_mod
 alias symbol:rdma_rw_ctx_init ib_core
@@ -1237,7 +1239,6 @@ alias symbol:snd_ctl_notify snd
 alias symbol:nf_conntrack_tuple_taken nf_conntrack
 alias symbol:syno_flashcache_proc_count syno_flashcache_control
 alias symbol:xfrm_ealg_get_byname xfrm_algo
-alias symbol:cachetree_lock target_core_mod
 alias symbol:iscsit_cause_connection_reinstatement iscsi_target_mod
 alias symbol:__SCT__tp_func_kvm_avic_unaccelerated_access kvm
 alias symbol:nfs_check_flags nfs
@@ -1479,7 +1480,6 @@ alias symbol:l2tp_session_get_nth l2tp_core
 alias symbol:rdma_link_register ib_core
 alias symbol:usb_find_common_endpoints_reverse usbcore
 alias symbol:nf_ct_get_id nf_conntrack
-alias symbol:cachetree_unlock target_core_mod
 alias symbol:fat_get_dotdot_entry fat
 alias symbol:kvm_clear_guest_page kvm
 alias symbol:locks_start_grace grace
@@ -1680,7 +1680,6 @@ alias symbol:nfs_path nfs
 alias symbol:rdma_port_get_link_layer ib_core
 alias symbol:ib_reg_user_mr ib_core
 alias symbol:rdma_listen rdma_cm
-alias symbol:cachetree_insert_with_lock target_core_mod
 alias symbol:xt_compat_add_offset x_tables
 alias symbol:kvm_mmu_page_fault kvm
 alias symbol:mlx5_query_nic_vport_system_image_guid mlx5_core
@@ -1729,6 +1728,7 @@ alias symbol:dm_hold dm_mod
 alias symbol:irq_bypass_unregister_consumer irqbypass
 alias symbol:sha224_zero_message_hash sha256_generic
 alias symbol:snd_pcm_hw_constraint_msbits snd_pcm
+alias symbol:cachetree_find target_core_mod
 alias symbol:ip_set_test ip_set
 alias symbol:xprt_adjust_cwnd sunrpc
 alias symbol:iscsi_conn_get_param libiscsi
@@ -1767,6 +1767,7 @@ alias symbol:iscsit_check_dataout_hdr iscsi_target_mod
 alias symbol:nf_ct_helper_hsize nf_conntrack
 alias symbol:slhc_toss slhc
 alias symbol:usb_set_configuration usbcore
+alias symbol:cache_life_dec target_core_mod
 alias symbol:ib_unregister_event_handler ib_core
 alias symbol:target_complete_cmd target_core_mod
 alias symbol:filesystem_stat_list target_core_mod
@@ -1939,6 +1940,7 @@ alias symbol:usbnet_device_suggests_idle usbnet
 alias symbol:dm_exception_store_type_unregister dm_snapshot
 alias symbol:ib_modify_qp_is_ok ib_core
 alias symbol:rdma_res_to_id rdma_cm
+alias symbol:syno_latency_control_start target_core_mod
 alias symbol:__SCK__tp_func_fib6_table_lookup ipv6
 alias symbol:iscsi_queuecommand libiscsi
 alias symbol:qed_get_eth_ops qed
@@ -2067,6 +2069,7 @@ alias symbol:nfs_generic_pg_test nfs
 alias symbol:rdma_destroy_qp rdma_cm
 alias symbol:sunrpc_cache_pipe_upcall_timeout sunrpc
 alias symbol:addrconf_add_linklocal ipv6
+alias symbol:cache_free target_core_mod
 alias symbol:nf_ct_expect_put nf_conntrack
 alias symbol:rdma_resolve_addr rdma_cm
 alias symbol:target_depend_item target_core_mod
@@ -2109,6 +2112,7 @@ alias symbol:usb_create_hcd usbcore
 alias symbol:xt_compat_target_to_user x_tables
 alias symbol:g_verify_token_header auth_rpcgss
 alias symbol:crypto_sha256_update sha256_generic
+alias symbol:init_wait_node target_core_mod
 alias symbol:rdma_user_mmap_entry_put ib_core
 alias symbol:fc_exch_mgr_alloc libfc
 alias symbol:kvm_get_rflags kvm
@@ -2166,6 +2170,7 @@ alias symbol:fc_rport_terminate_io libfc
 alias symbol:svc_recv sunrpc
 alias symbol:rdma_read_gid_hw_context ib_core
 alias symbol:fc_frame_crc_check libfc
+alias symbol:syno_latency_control_stop target_core_mod
 alias symbol:mlx4_map_sw_to_hw_steering_id mlx4_core
 alias symbol:mlx5_rl_add_rate_raw mlx5_core
 alias symbol:seglock_alloc target_core_mod
@@ -2250,6 +2255,7 @@ alias symbol:xprt_wait_for_reply_request_rtt sunrpc
 alias symbol:fc_exch_seq_send libfc
 alias symbol:fc_seq_els_rsp_send libfc
 alias symbol:qword_addhex sunrpc
+alias symbol:wait_node_release target_core_mod
 alias symbol:ib_rate_to_mbps ib_core
 alias symbol:snd_rawmidi_kernel_write snd_rawmidi
 alias symbol:usbip_dump_urb usbip_core
@@ -2271,6 +2277,7 @@ alias symbol:xt_check_match x_tables
 alias symbol:ip_tunnel_encap_add_ops ip_tunnel
 alias symbol:mlx4_flow_steer_promisc_remove mlx4_core
 alias symbol:usb_decode_ctrl usb_common
+alias symbol:snapshot_for_lunbackup target_core_mod
 alias symbol:mlx4_unregister_mac mlx4_core
 alias symbol:rpc_put_sb_net sunrpc
 alias symbol:snd_info_create_card_entry snd
@@ -2472,6 +2479,7 @@ alias symbol:xt_match_to_user x_tables
 alias symbol:__tracepoint_kvm_pi_irte_update kvm
 alias symbol:rpc_bind_new_program sunrpc
 alias symbol:usb_add_hcd usbcore
+alias symbol:cache_unlock target_core_mod
 alias symbol:ip_tunnel_init_net ip_tunnel
 alias symbol:transport_handle_cdb_direct target_core_mod
 alias symbol:vhost_signal vhost
@@ -2600,6 +2608,7 @@ alias symbol:__SCT__tp_func_kvm_pi_irte_update kvm
 alias symbol:svc_generic_rpcbind_set sunrpc
 alias symbol:usb_serial_generic_write_start usbserial
 alias symbol:dm_read_arg dm_mod
+alias symbol:g_lunbackup_io_buffer_wq target_core_mod
 alias symbol:mlx5_rl_remove_rate mlx5_core
 alias symbol:ip6_route_output_flags_noref ipv6
 alias symbol:mlx5_query_port_ptys mlx5_core
@@ -2645,6 +2654,7 @@ alias symbol:xdr_process_buf sunrpc
 alias symbol:ip_set_netmask_map ip_set
 alias symbol:rpcauth_get_pseudoflavor sunrpc
 alias symbol:snd_timer_continue snd_timer
+alias symbol:cache_eject target_core_mod
 alias symbol:iscsit_release_cmd iscsi_target_mod
 alias symbol:l2tp_session_get l2tp_core
 alias symbol:aioq_garbage_free_all rodsp_ep
@@ -3152,6 +3162,7 @@ alias symbol:kvm_vcpu_kick kvm
 alias symbol:usb_serial_generic_write_bulk_callback usbserial
 alias symbol:usbnet_start_xmit usbnet
 alias symbol:xprt_alloc_slot sunrpc
+alias symbol:cachetree_insert target_core_mod
 alias symbol:sbc_parse_cdb target_core_mod
 alias symbol:ib_map_mr_sg ib_core
 alias symbol:fuse_dev_release fuse

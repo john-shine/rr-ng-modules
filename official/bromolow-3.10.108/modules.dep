@@ -32,6 +32,7 @@ nf_nat_proto_gre.ko: nf_nat.ko nf_conntrack.ko
 thermal_sys.ko:
 sit.ko: ip_tunnel.ko ipv6.ko tunnel4.ko
 vfio_iommu_type1.ko: vfio.ko
+snd-page-alloc.ko:
 usbserial.ko: usbcore.ko usb-common.ko
 quota_v2.ko: quota_tree.ko
 slhc.ko:
@@ -79,7 +80,7 @@ ehci-hcd.ko: usbcore.ko usb-common.ko
 md5.ko:
 sha1_generic.ko:
 dm-mod.ko:
-target_core_mod_4_0.ko:
+target_core_mod_4_0.ko: target_core_mod.ko
 ppp_synctty.ko: ppp_generic.ko slhc.ko
 xfrm4_mode_tunnel.ko:
 bridge.ko: stp.ko llc.ko
@@ -87,10 +88,12 @@ vfio-pci.ko: vfio.ko
 loop.ko:
 mlx5_core.ko: mlx_compat.ko
 psnap.ko: llc.ko
+snd.ko: soundcore.ko
 be2net.ko:
 processor.ko: thermal_sys.ko
 vfat.ko: fat.ko
 vxlan.ko: ip_tunnel.ko
+snd-usb-hiface.ko: snd-pcm.ko snd-page-alloc.ko snd-timer.ko snd.ko soundcore.ko usbcore.ko usb-common.ko
 crc-itu-t.ko:
 async_xor.ko: xor.ko async_tx.ko
 macvlan.ko:
@@ -104,8 +107,10 @@ tunnel4.ko:
 synoacl_vfs.ko:
 8021q.ko:
 ppp_mppe.ko: ppp_generic.ko slhc.ko
+snd-pcm.ko: snd-page-alloc.ko snd-timer.ko snd.ko soundcore.ko
 iptable_nat.ko: nf_nat_ipv4.ko ip_tables.ko nf_nat.ko nf_conntrack.ko x_tables.ko
 xt_set.ko: ip_set.ko nfnetlink.ko x_tables.ko
+snd-timer.ko: snd.ko soundcore.ko
 ip6table_filter.ko: ip6_tables.ko x_tables.ko
 nf_nat_ipv4.ko: nf_nat.ko nf_conntrack.ko
 dca.ko:
@@ -117,6 +122,7 @@ raid6_pq.ko:
 atlantic_v2.ko: crc-itu-t.ko
 libcrc32c.ko:
 usbip-core.ko:
+snd-seq-device.ko: snd.ko soundcore.ko
 ipv6.ko:
 lrw.ko: gf128mul.ko
 btrfs.ko: zstd_decompress.ko ecryptfs.ko zstd_compress.ko xxhash.ko xor.ko raid6_pq.ko zlib_deflate.ko
@@ -145,6 +151,7 @@ mlx4_core.ko: mlx_compat.ko
 sch_sfq.ko:
 cdc_ether.ko: usbnet.ko usbcore.ko usb-common.ko
 ipt_MASQUERADE.ko: nf_nat.ko nf_conntrack.ko x_tables.ko
+snd-usb-audio.ko: snd-usbmidi-lib.ko snd-rawmidi.ko snd-seq-device.ko snd-hwdep.ko snd-pcm.ko snd-page-alloc.ko snd-timer.ko snd.ko soundcore.ko usbcore.ko usb-common.ko
 usbnet.ko: usbcore.ko usb-common.ko
 n_hdlc.ko:
 synobios.ko:
@@ -162,6 +169,7 @@ ppp_async.ko: crc-ccitt.ko ppp_generic.ko slhc.ko
 kvm-intel.ko: kvm.ko
 xt_NFQUEUE.ko: x_tables.ko
 flashcache.ko: syno_flashcache_control.ko dm-mod.ko
+snd-pcm-oss.ko: snd-mixer-oss.ko snd-pcm.ko snd-page-alloc.ko snd-timer.ko snd.ko soundcore.ko
 zlib_deflate.ko:
 appletalk.ko: psnap.ko llc.ko
 auth_rpcgss.ko: sunrpc.ko
@@ -179,6 +187,7 @@ aesni-intel.ko: aes-x86_64.ko glue_helper.ko lrw.ko gf128mul.ko ablk_helper.ko c
 vhost_net.ko: tun.ko
 hfsplus.ko:
 ioatdma.ko: dca.ko
+snd-rawmidi.ko: snd-seq-device.ko snd.ko soundcore.ko
 xfrm6_tunnel.ko: tunnel6.ko ipv6.ko
 udf.ko: crc-itu-t.ko
 ecryptfs.ko:
@@ -186,7 +195,7 @@ isfl_drv_x64.ko:
 compat_xtables.ko: x_tables.ko
 crc-ccitt.ko:
 gf128mul.ko:
-iscsi_target_mod_4_0.ko: target_core_mod_4_0.ko
+iscsi_target_mod_4_0.ko: target_core_mod_4_0.ko target_core_mod.ko
 rodsp_ep.ko: ipv6.ko
 xfrm_ipcomp.ko: xfrm_algo.ko
 dm-raid.ko: raid456.ko async_raid6_recov.ko async_memcpy.ko async_pq.ko async_xor.ko xor.ko async_tx.ko raid6_pq.ko raid10.ko dm-mod.ko
@@ -207,6 +216,7 @@ async_pq.ko: async_xor.ko xor.ko async_tx.ko raid6_pq.ko
 cmac.ko:
 kvm.ko:
 cls_u32.ko:
+snd-mixer-oss.ko: snd.ko soundcore.ko
 bsd_comp.ko: ppp_generic.ko slhc.ko
 i40e.ko:
 ansi_cprng.ko:
@@ -222,6 +232,7 @@ p8022.ko: llc.ko
 pppox.ko: ppp_generic.ko slhc.ko
 vhost_scsi.ko: vhost.ko target_core_mod.ko
 mdio.ko:
+snd-hwdep.ko: snd.ko soundcore.ko
 nfsd.ko: btrfs.ko zstd_decompress.ko ecryptfs.ko zstd_compress.ko xxhash.ko xor.ko raid6_pq.ko auth_rpcgss.ko lockd.ko sunrpc.ko zlib_deflate.ko
 xor.ko:
 des_generic.ko:
@@ -246,6 +257,7 @@ lfdd_drv.ko:
 xt_iprange.ko: x_tables.ko
 xt_TCPMSS.ko: x_tables.ko
 xt_geoip.ko: x_tables.ko
+snd-usbmidi-lib.ko: snd-rawmidi.ko snd-seq-device.ko snd.ko soundcore.ko usbcore.ko usb-common.ko
 authenc.ko:
 pci-stub.ko:
 tn40xx.ko:
