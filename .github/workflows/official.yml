@@ -158,7 +158,7 @@ jobs:
           getOfficialModules "$(getOfficialPatUrl "DS3617xs" "6.2")"
           #- version: 6.2.4 
           #  platform: broadwellnk
-          getOfficialModules "$(getOfficialPatUrl "DS1621xs+" "6.2")"  # DS3622xs%2B no have version 6.2.4
+          getOfficialModules "$(getOfficialPatUrl "DS1621xs+" "6.2")"
           #- version: 6.2.4 
           #  platform: bromolow
           getOfficialModules "$(getOfficialPatUrl "DS3615xs" "6.2")"
@@ -167,7 +167,7 @@ jobs:
           getOfficialModules "$(getOfficialPatUrl "DVA3221" "6.2")"
           #- version: 6.2.4 
           #  platform: geminilake
-          getOfficialModules "$(getOfficialPatUrl "DS920+" "6.2")"  # DVA1622 have i915.ko, but only supports 2nd to 9th gen, no have version 6.2.4.
+          getOfficialModules "$(getOfficialPatUrl "DS920+" "6.2")"
           #- version: 6.2.4 
           #  platform: purley
           getOfficialModules "$(getOfficialPatUrl "FS6400" "6.2")"
@@ -201,13 +201,13 @@ jobs:
           getOfficialModules "$(getOfficialPatUrl "SA6400" "7.1")"
           #- version: 7.1 
           #  platform: geminilake
-          getOfficialModules "$(getOfficialPatUrl "DVA1622" "7.1")"  # DVA1622 have i915.ko, but only supports 2nd to 9th gen.
+          getOfficialModules "$(getOfficialPatUrl "DS920+" "7.1")"
           #- version: 7.1 
           #  platform: purley
           getOfficialModules "$(getOfficialPatUrl "FS6400" "7.1")"
           #- version: 7.1
           #  platform: r1000
-          getOfficialModules "$(getOfficialPatUrl "DS923+" "7.1")"  # DS923%2B no have version 7.0.1
+          getOfficialModules "$(getOfficialPatUrl "DS923+" "7.1")"
           #- version: 7.1
           #  platform: v1000
           getOfficialModules "$(getOfficialPatUrl "DS1621+" "7.1")"
@@ -238,7 +238,7 @@ jobs:
           getOfficialModules  "$(getOfficialPatUrl "SA6400" "7.2")"
           #- version: 7.2 
           #  platform: geminilake
-          getOfficialModules  "$(getOfficialPatUrl "DVA1622" "7.2")"  # DVA1622 have i915.ko, but only supports 2nd to 9th gen.
+          getOfficialModules  "$(getOfficialPatUrl "DS920+" "7.2")"
           #- version: 7.2 
           #  platform: purley
           getOfficialModules  "$(getOfficialPatUrl "FS6400" "7.2")"
