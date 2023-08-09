@@ -17,12 +17,12 @@ libphy-y			+= $(mdio-bus-y)
 else
 obj-$(CONFIG_MDIO_DEVICE)	+= mdio-bus.o
 endif
-#obj-$(CONFIG_MDIO_DEVRES)	+= mdio_devres.o
+obj-$(CONFIG_MDIO_DEVRES)	+= mdio_devres.o
 libphy-$(CONFIG_SWPHY)		+= swphy.o
-libphy-$(CONFIG_LED_TRIGGER_PHY)	+= phy_led_triggers.o
+#libphy-$(CONFIG_LED_TRIGGER_PHY)	+= phy_led_triggers.o
 
 #obj-$(CONFIG_PHYLINK)		+= phylink.o
-#obj-$(CONFIG_PHYLIB)		+= libphy.o
+obj-$(CONFIG_PHYLIB)		+= libphy.o
 
 #obj-$(CONFIG_NETWORK_PHY_TIMESTAMPING) += mii_timestamper.o
 
