@@ -39,10 +39,10 @@
 
 #include "qede.h"
 
-static const char version[] = "QLogic QL4xxx 40G/100G Ethernet Driver qede "
-			      DRV_MODULE_VERSION "\n";
+static char version[] =
+	"QLogic FastLinQ 4xxxx Ethernet Driver qede " DRV_MODULE_VERSION "\n";
 
-MODULE_DESCRIPTION("QLogic 40G/100G Ethernet Driver");
+MODULE_DESCRIPTION("QLogic FastLinQ 4xxxx Ethernet Driver");
 MODULE_LICENSE("GPL");
 MODULE_VERSION(DRV_MODULE_VERSION);
 
@@ -53,11 +53,14 @@ MODULE_PARM_DESC(debug, " Default debug msglevel");
 static const struct qed_eth_ops *qed_ops;
 
 #define CHIP_NUM_57980S_40		0x1634
-#define CHIP_NUM_57980S_10		0x1635
+#define CHIP_NUM_57980S_10		0x1666
 #define CHIP_NUM_57980S_MF		0x1636
 #define CHIP_NUM_57980S_100		0x1644
 #define CHIP_NUM_57980S_50		0x1654
 #define CHIP_NUM_57980S_25		0x1656
+#define CHIP_NUM_57980S_IOV		0x1664
+#define CHIP_NUM_AH			0x8070
+#define CHIP_NUM_AH_IOV			0x8090
 
 #ifndef PCI_DEVICE_ID_NX2_57980E
 #define PCI_DEVICE_ID_57980S_40		CHIP_NUM_57980S_40
@@ -66,6 +69,9 @@ static const struct qed_eth_ops *qed_ops;
 #define PCI_DEVICE_ID_57980S_100	CHIP_NUM_57980S_100
 #define PCI_DEVICE_ID_57980S_50		CHIP_NUM_57980S_50
 #define PCI_DEVICE_ID_57980S_25		CHIP_NUM_57980S_25
+#define PCI_DEVICE_ID_57980S_IOV	CHIP_NUM_57980S_IOV
+#define PCI_DEVICE_ID_AH		CHIP_NUM_AH
+#define PCI_DEVICE_ID_AH_IOV		CHIP_NUM_AH_IOV
 #endif
 
 static const struct pci_device_id qede_pci_tbl[] = {
@@ -75,6 +81,13 @@ static const struct pci_device_id qede_pci_tbl[] = {
 	{ PCI_VDEVICE(QLOGIC, PCI_DEVICE_ID_57980S_100), 0 },
 	{ PCI_VDEVICE(QLOGIC, PCI_DEVICE_ID_57980S_50), 0 },
 	{ PCI_VDEVICE(QLOGIC, PCI_DEVICE_ID_57980S_25), 0 },
+#ifdef CONFIG_QED_SRIOV
+	{PCI_VDEVICE(QLOGIC, PCI_DEVICE_ID_57980S_IOV), 0},
+#endif
+	{PCI_VDEVICE(QLOGIC, PCI_DEVICE_ID_AH), 0},
+#ifdef CONFIG_QED_SRIOV
+	{PCI_VDEVICE(QLOGIC, PCI_DEVICE_ID_AH_IOV), 0},
+#endif
 	{ 0 }
 };
 
