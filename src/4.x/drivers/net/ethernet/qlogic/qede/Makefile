@@ -57,7 +57,7 @@ endif
 
 MODULE_NAME = qede
 
-EXTRA_CFLAGS += -DDRV_MODULE_NAME=\"$(MODULE_NAME)\" -DCONFIG_DCB
+EXTRA_CFLAGS += -DDRV_MODULE_NAME=\"$(MODULE_NAME)\" #-DCONFIG_DCB
 obj-m += $(MODULE_NAME).o 
 qede-objs = $(patsubst %.c,%.o,$(filter %.c, $(SOURCES)))
 
