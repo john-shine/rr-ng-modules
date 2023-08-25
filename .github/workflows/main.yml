@@ -266,10 +266,11 @@ jobs:
         run: |
           if [ "${{ matrix.platform }}" = "epyc7002" ]; then
             OFFICIAL_PATH="${{ github.workspace }}/official/hda1/${{ matrix.platform }}-${{ matrix.version }}-${{ env.KVER }}"
+            PARTY3RD_PATH="${{ github.workspace }}/thirdparty/${{ matrix.platform }}-${{ matrix.version }}-${{ env.KVER }}"
           else
             OFFICIAL_PATH="${{ github.workspace }}/official/hda1/${{ matrix.platform }}-${{ env.KVER }}"
+            PARTY3RD_PATH="${{ github.workspace }}/thirdparty/${{ matrix.platform }}-${{ env.KVER }}"
           fi
-          PARTY3RD_PATH="${{ github.workspace }}/thirdparty/${{ matrix.platform }}-${{ env.KVER }}"
 
           echo "copy official modules"
           OM=(cpufreq_performance i915 processor ehci-hcd ehci-pci uhci-hcd xhci-hcd xhci-pci)
