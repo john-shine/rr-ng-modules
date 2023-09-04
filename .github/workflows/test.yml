@@ -166,7 +166,7 @@ jobs:
           OM=(cpufreq_performance i915 processor ehci-hcd ehci-pci uhci-hcd xhci-hcd xhci-pci)
           for M in ${OM[@]}; do
             function _copydepends() {
-              [ -f "${OFFICIAL_PATH}/${1}" ] && [ ! -f "${OFFICIAL_PATH/hda1/rd}/${1}" ] && cp -f "${OFFICIAL_PATH}/${1}" "${{ github.workspace }}/source/output"
+              [ -f "${OFFICIAL_PATH}/${1}" ] && [ ! -f "${OFFICIAL_PATH/hda1/rd}/${1}" ] && sudo cp -f "${OFFICIAL_PATH}/${1}" "${{ github.workspace }}/source/output"
               depends=($(modinfo "${OFFICIAL_PATH}/${1}" | grep depends: | awk -F: '{print $2}' | awk '$1=$1' | sed 's/,/ /g'))
               if [ ${#depends[*]} -gt 0 ]; then
                 for k in ${depends[@]}; do
@@ -178,7 +178,7 @@ jobs:
           done
 
           echo "copy 3rd modules"
-          [ -d "${PARTY3RD_PATH}" ] && cp -rf "${PARTY3RD_PATH}/." "${{ github.workspace }}/source/output"
+          [ -d "${PARTY3RD_PATH}" ] && sudo cp -rf "${PARTY3RD_PATH}/." "${{ github.workspace }}/source/output"
 
           echo "check depends"
           for M in `ls ${{ github.workspace }}/source/output`; do
