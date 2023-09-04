@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2022 Ing <https://github.com/wjz304>
-# 
+#
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
 #
@@ -17,14 +17,14 @@
 
 name: Build modules
 
-on:  
+on:
   release:
     types: [published]
 
   workflow_dispatch:
     inputs:
       version:
-        description: 'format %y.%-m.$i or auto'
+        description: "format %y.%-m.$i or auto"
         required: false
         type: string
 
@@ -33,68 +33,68 @@ jobs:
     strategy:
       matrix:
         include:
-          - version: 6.2 
+          - version: 6.2
             platform: apollolake
-          - version: 6.2 
+          - version: 6.2
             platform: braswell
-          - version: 6.2 
+          - version: 6.2
             platform: broadwell
-          - version: 6.2 
+          - version: 6.2
             platform: broadwellnk
-          - version: 6.2 
+          - version: 6.2
             platform: bromolow
-          - version: 6.2 
+          - version: 6.2
             platform: denverton
           # checkout 6.2.4
-          - version: 6.2 
+          - version: 6.2
             platform: geminilake
           # checkout 6.2.4
-          - version: 6.2 
+          - version: 6.2
             platform: purley
           # checkout 6.2.4
-          - version: 6.2 
-            platform: v1000 
+          - version: 6.2
+            platform: v1000
 
-          - version: 7.1 
+          - version: 7.1
             platform: apollolake
           - version: 7.1
             platform: braswell
           - version: 7.1
             platform: broadwell
-          - version: 7.1 
+          - version: 7.1
             platform: broadwellnk
-          - version: 7.1 
+          - version: 7.1
             platform: bromolow
           - version: 7.1
             platform: denverton
           - version: 7.1
             platform: epyc7002
-          - version: 7.1 
+          - version: 7.1
             platform: geminilake
-          - version: 7.1 
+          - version: 7.1
             platform: purley
           - version: 7.1
             platform: r1000
           - version: 7.1
             platform: v1000
 
-          - version: 7.2 
+          - version: 7.2
             platform: apollolake
           - version: 7.2
             platform: braswell
           - version: 7.2
             platform: broadwell
-          - version: 7.2 
+          - version: 7.2
             platform: broadwellnk
-          #- version: 7.2 
+          #- version: 7.2
           #  platform: bromolow
           - version: 7.2
             platform: denverton
           - version: 7.2
             platform: epyc7002
-          - version: 7.2 
+          - version: 7.2
             platform: geminilake
-          - version: 7.2 
+          - version: 7.2
             platform: purley
           - version: 7.2
             platform: r1000
@@ -111,8 +111,8 @@ jobs:
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          sudo timedatectl set-timezone "Asia/Shanghai" 
-          
+          sudo timedatectl set-timezone "Asia/Shanghai"
+
       # - name: Cache EnvDeploy
       #   id: cache-env
       #   uses: actions/cache@v3
@@ -123,7 +123,7 @@ jobs:
       #       ${{ github.workspace }}/pkgscripts-ng
       #       ${{ github.workspace }}/build_env
       #     key: ds.${{ matrix.platform }}-${{ matrix.version }}
-          
+
       - name: Get EnvDeploy
         # if: ${{ steps.cache-env.outputs.cache-hit != 'true' }}
         run: |
@@ -164,7 +164,7 @@ jobs:
             [ -f "/env64.mak" ] && echo "CCVER=${CCVER}" >> /env64.mak
           fi
           EOF
-          
+
           [ -f ${ENV_PATH}/env64.mak ] && ENV_FILE=${ENV_PATH}/env64.mak || ([ -f ${ENV_PATH}/env32.mak ] && ENV_FILE=${ENV_PATH}/env32.mak)
           if [ -n "${ENV_FILE}" ]; then
             KVER=`grep 'KVER=' ${ENV_FILE} | awk -F'=' '{print $2}'`
@@ -173,26 +173,16 @@ jobs:
             [ -n "${CCVER}" ] && echo "CCVER=${CCVER}" >> $GITHUB_ENV
           fi
 
-      - name: Get Src
+      - name: Make modules
         run: |
-          ROOT_PATH=${{ github.workspace }}
-
-          mkdir -p ${ROOT_PATH}/source/output
-          repo=${{ env.repo }}
-          KVER=${{ env.KVER }}
-
-          sudo cp -a ${ROOT_PATH}/src/${KVER:0:1}.x ${ROOT_PATH}/source/input
-
-          sudo cp -a ${ROOT_PATH}/source ${ROOT_PATH}/build_env/ds.${{ matrix.platform }}-${{ matrix.version }}/
-
-      - name: Make
-        run: |
-          ROOT_PATH=${{ github.workspace }}
-
           sudo chroot build_env/ds.${{ matrix.platform }}-${{ matrix.version }} << "EOF"
           sed -i 's/^CFLAGS=/#CFLAGS=/g; s/^CXXFLAGS=/#CXXFLAGS=/g' /env${BUILD_ARCH}.mak
           while read line; do if [ ${line:0:1} != "#" ]; then export ${line%%=*}="${line#*=}"; fi; done < /env${BUILD_ARCH}.mak
-          cd /source/input
+          mkdir -p /source/output
+
+          repo=${{ github.server_url }}/${{ github.repository }}
+          git clone -c http.sslVerify=false ${repo} /source/input
+          cd /source/input/src/${KVER:0:1}.x
           [ -z "`grep 'env.mak' Makefile`" ] && sed -i '1 i include /env.mak' Makefile
 
           if [ -f "defines.${{ matrix.platform }}" ]; then
@@ -208,59 +198,9 @@ jobs:
           done < <(find ${PWD} -name \*.ko)
           EOF
 
+          ROOT_PATH=${{ github.workspace }}
+          mkdir -p ${ROOT_PATH}/source
           sudo cp -a ${ROOT_PATH}/build_env/ds.${{ matrix.platform }}-${{ matrix.version }}/source/output ${ROOT_PATH}/source/
-          sudo chmod a+rw -R ${ROOT_PATH}/source/output
-    
-      # - name: GCC 12
-      #   if: startsWith(env.CCVER, '12') && startsWith(env.KVER, '4')
-      #   shell: python
-      #   run: |
-      #     # -*- coding: utf-8 -*-
-      # 
-      #     import sys, os, re
-      # 
-      #     # R_X86_64_PC32  = 2
-      #     # R_X86_64_PLT32 = 4
-      # 
-      #     def PLT322PC32(infile, outfile):
-      #         readelfLines = []
-      #         with os.popen('readelf -r "{}"'.format(infile)) as f:
-      #             readelfLines = f.readlines()
-      # 
-      #         offsetList = []
-      #         start = 0
-      #         for idx, line in enumerate(readelfLines):
-      #             if line.startswith('Relocation section'):
-      #                 arr = re.findall(r'0x[0-9a-f]*', line)
-      #                 offat = int(arr[0], base=16)
-      #                 start = idx + 1
-      #                 continue
-      #             if "R_X86_64_PLT32" in line:
-      #                 offsetList.append(offat + (idx - start - 1) * 24 + 8)
-      # 
-      #         if len(offsetList) > 0:
-      #             obj = []
-      #             with open(infile, 'rb') as f:
-      #                 obj = list(f.read())
-      # 
-      #             if len(obj) > 0:
-      #                 for offset in offsetList:
-      #                     assert obj[offset] == (4 if sys.version_info.major >= 3 else 'x04')
-      #                     obj[offset] = 2 if sys.version_info.major >= 3 else 'x02'
-      #         
-      #             with open(outfile, 'wb') as f:
-      #                 f.write(bytes(obj) if sys.version_info.major >= 3 else ''.join(obj))
-      #             return True
-      #         return False
-      # 
-      #     if __name__ == '__main__':
-      #         ROOT_PATH = '${{ github.workspace }}'
-      #         modules = os.listdir(os.path.join(ROOT_PATH, 'source/output'))
-      #         for module in modules:
-      #             module_path = os.path.join(ROOT_PATH, 'source/output', module)
-      #             ret = PLT322PC32(module_path, module_path)
-      #             if ret == False:
-      #                 print('{} no has.'.format(module_path))
 
       - name: Tar to Artifacts
         run: |
@@ -314,11 +254,10 @@ jobs:
           name: modules
           path: |
             ${{ github.workspace }}/source/*.tgz
-            
+
       - name: clean
         run: |
           sudo rm -rf ${{ github.workspace }}/build_env/ds.${{ matrix.platform }}-${{ matrix.version }}/source/*
-
 
   firmware:
     runs-on: ubuntu-latest
@@ -343,7 +282,7 @@ jobs:
 
           echo "extract all modules"
           for F in ./modules/*.tgz; do mkdir "${F%.tgz}" && tar -xzf "${F}" -C "${F%.tgz}"; done
-          
+
           echo "get firmware"
           SOURCE=/tmp/linux-firmware
           git clone https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git ${SOURCE}
@@ -358,14 +297,12 @@ jobs:
 
           tar caf firmware.tgz -C firmware .
 
-
       - name: Upload to Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: modules
           path: |
             firmware.tgz
-
 
   release:
     runs-on: ubuntu-latest
