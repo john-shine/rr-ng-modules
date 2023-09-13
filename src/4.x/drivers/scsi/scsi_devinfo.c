@@ -1,3 +1,6 @@
+#ifndef MY_ABC_HERE
+#define MY_ABC_HERE
+#endif
 
 #include <linux/blkdev.h>
 #include <linux/init.h>
@@ -386,8 +389,8 @@ EXPORT_SYMBOL(scsi_dev_info_list_add_keyed);
 
 /**
  * scsi_dev_info_list_find - find a matching dev_info list entry.
- * @vendor:	full vendor string
- * @model:	full model (product) string
+ * @vendor:	vendor string
+ * @model:	model (product) string
  * @key:	specify list to use
  *
  * Description:
@@ -402,7 +405,7 @@ static struct scsi_dev_info_list *scsi_dev_info_list_find(const char *vendor,
 	struct scsi_dev_info_list *devinfo;
 	struct scsi_dev_info_list_table *devinfo_table =
 		scsi_devinfo_lookup_by_key(key);
-	size_t vmax, mmax, mlen;
+	size_t vmax, mmax;
 	const char *vskip, *mskip;
 
 	if (IS_ERR(devinfo_table))
@@ -441,19 +444,15 @@ static struct scsi_dev_info_list *scsi_dev_info_list_find(const char *vendor,
 			    dev_info_list) {
 		if (devinfo->compatible) {
 			/*
-			 * vendor strings must be an exact match
+			 * Behave like the older version of get_device_flags.
 			 */
-			if (vmax != strnlen(devinfo->vendor,
-					    sizeof(devinfo->vendor)) ||
-			    memcmp(devinfo->vendor, vskip, vmax))
+			if (memcmp(devinfo->vendor, vskip, vmax) ||
+					(vmax < sizeof(devinfo->vendor) &&
+						devinfo->vendor[vmax]))
 				continue;
-
-			/*
-			 * @model specifies the full string, and
-			 * must be larger or equal to devinfo->model
-			 */
-			mlen = strnlen(devinfo->model, sizeof(devinfo->model));
-			if (mmax < mlen || memcmp(devinfo->model, mskip, mlen))
+			if (memcmp(devinfo->model, mskip, mmax) ||
+					(mmax < sizeof(devinfo->model) &&
+						devinfo->model[mmax]))
 				continue;
 			return devinfo;
 		} else {
@@ -621,7 +620,11 @@ static int devinfo_seq_show(struct seq_file *m, void *v)
 	    devinfo_table->name)
 		seq_printf(m, "[%s]:\n", devinfo_table->name);
 
+#ifdef MY_ABC_HERE
+	seq_printf(m, "'%.8s' '%."CONFIG_SYNO_DISK_MODEL_LEN"s' 0x%x\n",
+#else /* MY_ABC_HERE */
 	seq_printf(m, "'%.8s' '%.16s' 0x%x\n",
+#endif /* MY_ABC_HERE */
 		   devinfo->vendor, devinfo->model, devinfo->flags);
 	return 0;
 }
