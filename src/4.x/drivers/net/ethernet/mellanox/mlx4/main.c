@@ -1763,14 +1763,14 @@ static int mlx4_comm_check_offline(struct mlx4_dev *dev)
 			       (u32)(1 << COMM_CHAN_OFFLINE_OFFSET));
 		if (!offline_bit)
 			return 0;
-
+#if LINUX_VERSION_CODE > KERNEL_VERSION(4, 4, 59)
 		/* If device removal has been requested,
 		 * do not continue retrying.
 		 */
 		if (dev->persist->interface_state &
 		    MLX4_INTERFACE_STATE_NOWAIT)
 			break;
-
+#endif
 		/* There are cases as part of AER/Reset flow that PF needs
 		 * around 100 msec to load. We therefore sleep for 100 msec
 		 * to allow other tasks to make use of that CPU during this
@@ -3700,10 +3700,10 @@ static void mlx4_remove_one(struct pci_dev *pdev)
 	struct mlx4_dev  *dev  = persist->dev;
 	struct mlx4_priv *priv = mlx4_priv(dev);
 	int active_vfs = 0;
-
+#if LINUX_VERSION_CODE > KERNEL_VERSION(4, 4, 59)
 	if (mlx4_is_slave(dev))
 		persist->interface_state |= MLX4_INTERFACE_STATE_NOWAIT;
-
+#endif
 	mutex_lock(&persist->interface_state_mutex);
 	persist->interface_state |= MLX4_INTERFACE_STATE_DELETION;
 	mutex_unlock(&persist->interface_state_mutex);

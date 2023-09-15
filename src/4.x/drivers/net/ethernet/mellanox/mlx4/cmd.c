@@ -2278,7 +2278,7 @@ static int sync_toggles(struct mlx4_dev *dev)
 		rd_toggle = swab32(readl(&priv->mfunc.comm->slave_read));
 		if (wr_toggle == 0xffffffff || rd_toggle == 0xffffffff) {
 			/* PCI might be offline */
-
+#if LINUX_VERSION_CODE > KERNEL_VERSION(4, 4, 59)
 			/* If device removal has been requested,
 			 * do not continue retrying.
 			 */
@@ -2288,7 +2288,7 @@ static int sync_toggles(struct mlx4_dev *dev)
 					  "communication channel is offline\n");
 				return -EIO;
 			}
-
+#endif
 			msleep(100);
 			wr_toggle = swab32(readl(&priv->mfunc.comm->
 					   slave_write));

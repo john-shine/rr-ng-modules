@@ -985,13 +985,13 @@ int mlx4_flow_attach(struct mlx4_dev *dev,
 	mailbox = mlx4_alloc_cmd_mailbox(dev);
 	if (IS_ERR(mailbox))
 		return PTR_ERR(mailbox);
-
+#if LINUX_VERSION_CODE > KERNEL_VERSION(4, 4, 59)
 	if (!mlx4_qp_lookup(dev, rule->qpn)) {
 		mlx4_err_rule(dev, "QP doesn't exist\n", rule);
 		ret = -EINVAL;
 		goto out;
 	}
-
+#endif
 	trans_rule_ctrl_to_hw(rule, mailbox->buf);
 
 	size += sizeof(struct mlx4_net_trans_rule_hw_ctrl);
