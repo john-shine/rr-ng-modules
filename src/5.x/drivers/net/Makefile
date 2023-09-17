@@ -10,7 +10,7 @@
 #obj-$(CONFIG_IPVLAN) += ipvlan/
 #obj-$(CONFIG_IPVTAP) += ipvlan/
 #obj-$(CONFIG_DUMMY) += dummy.o
-#obj-$(CONFIG_WIREGUARD) += wireguard/
+obj-$(CONFIG_WIREGUARD) += wireguard/
 #obj-$(CONFIG_EQUALIZER) += eql.o
 #obj-$(CONFIG_IFB) += ifb.o
 #obj-$(CONFIG_MACSEC) += macsec.o
@@ -65,7 +65,7 @@ obj-$(CONFIG_ETHERNET) += ethernet/
 #obj-$(CONFIG_NET_SB1000) += sb1000.o
 #obj-$(CONFIG_SUNGEM_PHY) += sungem_phy.o
 #obj-$(CONFIG_WAN) += wan/
-#obj-$(CONFIG_WLAN) += wireless/
+obj-$(CONFIG_WLAN) += wireless/
 #obj-$(CONFIG_WIMAX) += wimax/
 #obj-$(CONFIG_IEEE802154) += ieee802154/
 

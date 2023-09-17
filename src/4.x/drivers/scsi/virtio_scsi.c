@@ -834,6 +834,9 @@ static struct scsi_host_template virtscsi_host_template_single = {
 #if defined(MY_DEF_HERE)
 	.syno_index_get = virtscsi_index_get,
 #endif /* MY_DEF_HERE */
+#if defined(MY_ABC_HERE)
+	.syno_port_type			= SYNO_PORT_TYPE_SAS,
+#endif /* MY_ABC_HERE */
 };
 
 static struct scsi_host_template virtscsi_host_template_multi = {
@@ -857,6 +860,9 @@ static struct scsi_host_template virtscsi_host_template_multi = {
 #ifdef MY_DEF_HERE
 	.syno_index_get = virtscsi_index_get,
 #endif /* MY_DEF_HERE */
+#if defined(MY_ABC_HERE)
+	.syno_port_type			= SYNO_PORT_TYPE_SAS,
+#endif /* MY_ABC_HERE */
 };
 
 #define virtscsi_config_get(vdev, fld) \
