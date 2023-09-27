@@ -39,12 +39,17 @@ jobs:
           # - version: 6.2
           #   platform: broadwellnk
           # - version: 6.2
+          #   platform: broadwellntbap
+          # - version: 6.2
           #   platform: bromolow
           # - version: 6.2
           #   platform: denverton
           # # checkout 6.2.4
           # - version: 6.2
           #   platform: geminilake
+          # ## checkout 6.2.4
+          # #- version: 6.2
+          # # platform: grantley
           # # checkout 6.2.4
           # - version: 6.2
           #   platform: purley
@@ -61,6 +66,10 @@ jobs:
           # - version: 7.1
           #   platform: broadwellnk
           # - version: 7.1
+          #   platform: broadwellnkv2
+          # - version: 7.1
+          #   platform: broadwellntbap
+          # - version: 7.1
           #   platform: bromolow
           # - version: 7.1
           #   platform: denverton
@@ -68,6 +77,8 @@ jobs:
             platform: epyc7002
           # - version: 7.1
           #   platform: geminilake
+          # #- version: 7.1
+          # #  platform: grantley
           # - version: 7.1
           #   platform: purley
           # - version: 7.1
@@ -83,6 +94,10 @@ jobs:
             platform: broadwell
           - version: 7.2
             platform: broadwellnk
+          - version: 7.2
+            platform: broadwellnkv2
+          - version: 7.2
+            platform: broadwellntbap
           #- version: 7.2
           #  platform: bromolow
           - version: 7.2
@@ -91,6 +106,8 @@ jobs:
             platform: epyc7002
           - version: 7.2
             platform: geminilake
+          #- version: 7.2
+          #  platform: grantley
           - version: 7.2
             platform: purley
           - version: 7.2
@@ -243,7 +260,7 @@ jobs:
         run: |
           ls artifacts
           for F in `ls artifacts/*.tgz`; do 
-            if echo ${F} | grep -qE "apollolake|braswell|broadwell|broadwellnk|bromolow|denverton|geminilake|purley"; then 
+            if echo ${F} | grep -qE "apollolake|braswell|broadwell|broadwellnk|broadwellnkv2|broadwellntbap|bromolow|denverton|geminilake|grantley|purley"; then 
               KVM="kvm-amd.ko"
             else  # "epyc7002|r1000|v1000"
               KVM="kvm-intel.ko"
