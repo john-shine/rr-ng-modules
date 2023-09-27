@@ -160,6 +160,9 @@ jobs:
           #  platform: broadwellnk
           getOfficialModules "$(getOfficialPatUrl "DS1621xs+" "6.2")"
           #- version: 6.2.4 
+          #  platform: broadwellntbap
+          getOfficialModules "$(getOfficialPatUrl "SA3400D" "6.2")"
+          #- version: 6.2.4 
           #  platform: bromolow
           getOfficialModules "$(getOfficialPatUrl "DS3615xs" "6.2")"
           #- version: 6.2.4 
@@ -168,6 +171,9 @@ jobs:
           #- version: 6.2.4 
           #  platform: geminilake
           getOfficialModules "$(getOfficialPatUrl "DS920+" "6.2")"
+          ##- version: 6.2.4 
+          ##  platform: grantley
+          #getOfficialModules "$(getOfficialPatUrl "FS3017" "6.2")"
           #- version: 6.2.4 
           #  platform: purley
           getOfficialModules "$(getOfficialPatUrl "FS6400" "6.2")"
@@ -191,6 +197,12 @@ jobs:
           #  platform: broadwellnk
           getOfficialModules "$(getOfficialPatUrl "DS1621xs+" "7.1")"
           #- version: 7.1 
+          #  platform: broadwellnkv2
+          getOfficialModules "$(getOfficialPatUrl "SA3610" "7.1")"
+          #- version: 7.1 
+          #  platform: broadwellntbap
+          getOfficialModules "$(getOfficialPatUrl "SA3400D" "7.1")"
+          #- version: 7.1 
           #  platform: bromolow
           getOfficialModules "$(getOfficialPatUrl "DS3615xs" "7.1")"
           #- version: 7.1
@@ -202,6 +214,9 @@ jobs:
           #- version: 7.1 
           #  platform: geminilake
           getOfficialModules "$(getOfficialPatUrl "DS920+" "7.1")"
+          ##- version: 7.1 
+          ##  platform: grantley
+          #getOfficialModules "$(getOfficialPatUrl "FS3017" "7.1")"
           #- version: 7.1 
           #  platform: purley
           getOfficialModules "$(getOfficialPatUrl "FS6400" "7.1")"
@@ -227,6 +242,12 @@ jobs:
           #- version: 7.2 
           #  platform: broadwellnk
           getOfficialModules "$(getOfficialPatUrl "DS1621xs+" "7.2")"
+          #- version: 7.2 
+          #  platform: broadwellnkv2
+          getOfficialModules "$(getOfficialPatUrl "SA3610" "7.2")"
+          #- version: 7.2 
+          #  platform: broadwellntbap
+          getOfficialModules "$(getOfficialPatUrl "SA3400D" "7.2")"
           ##- version: 7.2 
           ##  platform: bromolow
           #getOfficialModules "$(getOfficialPatUrl "DS3615xs" "7.2")"
@@ -239,6 +260,9 @@ jobs:
           #- version: 7.2 
           #  platform: geminilake
           getOfficialModules  "$(getOfficialPatUrl "DS920+" "7.2")"
+          ##- version: 7.2 
+          ##  platform: grantley
+          #getOfficialModules "$(getOfficialPatUrl "FS3017" "7.2")"
           #- version: 7.2 
           #  platform: purley
           getOfficialModules  "$(getOfficialPatUrl "FS6400" "7.2")"
