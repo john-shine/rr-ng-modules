@@ -2076,6 +2076,7 @@ alias symbol:nfs_umount_begin nfs
 alias symbol:odx_register_blun_token_read target_core_mod
 alias symbol:xxh32_update xxhash
 alias symbol:mlx5_query_nic_vport_mtu mlx5_core
+alias symbol:__tracepoint_syno_nfsd_dispatch nfsd
 alias symbol:kvm_lapic_set_eoi kvm
 alias symbol:mlx5_query_nic_vport_promisc mlx5_core
 alias symbol:xt_check_match x_tables
@@ -2417,6 +2418,7 @@ alias symbol:rpsink_ready_count rodsp_ep
 alias symbol:snd_rawmidi_transmit snd_rawmidi
 alias symbol:hidinput_find_field hid
 alias symbol:ib_create_cm_id ib_cm
+alias symbol:__tracepoint_syno_nfsd4_dispatch nfsd
 alias symbol:ib_send_cm_dreq ib_cm
 alias symbol:ip6_push_pending_frames ipv6
 alias symbol:mlx5_query_hca_vport_gid mlx5_core

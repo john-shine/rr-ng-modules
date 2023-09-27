@@ -1,6 +1,7 @@
 # Aliases for symbols, used by symbol_request().
 alias symbol:odx_op_counter_increase target_core_mod
 alias symbol:mlx4_db_free mlx4_core
+alias symbol:nvmf_register_transport nvme_fabrics
 alias symbol:odx_register_alun_token_read target_core_mod
 alias symbol:xdr_encode_opaque sunrpc
 alias symbol:kvm_emulate_wbinvd kvm
@@ -8,6 +9,7 @@ alias symbol:nfs_access_add_cache nfs
 alias symbol:fat_build_inode fat
 alias symbol:xdr_set_scratch_buffer sunrpc
 alias symbol:ib_free_cq ib_core
+alias symbol:nvmf_unregister_transport nvme_fabrics
 alias symbol:qlt_stop_phase1 qla2xxx
 alias symbol:usb_phy_roothub_suspend usbcore
 alias symbol:__SCT__tp_func_kvm_nested_vmexit kvm
@@ -30,6 +32,7 @@ alias symbol:usb_speed_string usb_common
 alias symbol:vhost_get_vq_desc vhost
 alias symbol:gfn_to_page_many_atomic kvm
 alias symbol:mlx5_modify_nic_vport_mac_address mlx5_core
+alias symbol:nvme_fc_register_localport nvme_fc
 alias symbol:copy_from_user_toio snd
 alias symbol:mlx4_mtt_addr mlx4_core
 alias symbol:ib_modify_mad ib_core
@@ -41,6 +44,7 @@ alias symbol:hid_compare_device_paths hid
 alias symbol:ib_unregister_device ib_core
 alias symbol:iscsit_build_text_rsp iscsi_target_mod
 alias symbol:rpc_mkpipe_data sunrpc
+alias symbol:nvmf_connect_admin_queue nvme_fabrics
 alias symbol:kvm_unmap_gfn kvm
 alias symbol:nfnetlink_unicast nfnetlink
 alias symbol:ovs_netdev_link openvswitch
@@ -190,6 +194,7 @@ alias symbol:nfs4_set_rw_stateid nfsv4
 alias symbol:rpsink_remove rodsp_ep
 alias symbol:xprt_unpin_rqst sunrpc
 alias symbol:i2c_bit_algo i2c_algo_bit
+alias symbol:nvmf_ip_options_match nvme_fabrics
 alias symbol:vhost_iotlb_del_range vhost_iotlb
 alias symbol:xdr_encode_word sunrpc
 alias symbol:fc_host_post_fc_event scsi_transport_fc
@@ -339,7 +344,6 @@ alias symbol:xt_table_unlock x_tables
 alias symbol:usb_serial_generic_submit_read_urbs usbserial
 alias symbol:simd_skcipher_create_compat crypto_simd
 alias symbol:rpc_clnt_test_and_add_xprt sunrpc
-alias symbol:auxiliary_device_init auxiliary
 alias symbol:fat_getattr fat
 alias symbol:rdma_alloc_netdev ib_core
 alias symbol:iscsit_get_datain_values iscsi_target_mod
@@ -424,6 +428,7 @@ alias symbol:l2tp_session_inc_refcount l2tp_core
 alias symbol:__tracepoint_kvm_avic_incomplete_ipi kvm
 alias symbol:fc_fc4_register_provider libfc
 alias symbol:mlx5_core_reserved_gids_count mlx5_core
+alias symbol:nvme_fc_unregister_localport nvme_fc
 alias symbol:dm_get_device dm_mod
 alias symbol:rpc_set_connect_timeout sunrpc
 alias symbol:slhc_uncompress slhc
@@ -522,6 +527,7 @@ alias symbol:xdr_init_decode_pages sunrpc
 alias symbol:fc_block_rport scsi_transport_fc
 alias symbol:ip_set_nfnl_get_byindex ip_set
 alias symbol:snd_ctl_get_preferred_subdevice snd
+alias symbol:__SCK__tp_func_syno_nfsd4_dispatch nfsd
 alias symbol:ib_query_pkey ib_core
 alias symbol:kvm_read_guest kvm
 alias symbol:vhost_dev_ioctl vhost
@@ -730,6 +736,7 @@ alias symbol:rdma_move_ah_attr ib_core
 alias symbol:rdma_nl_put_driver_u64_hex ib_core
 alias symbol:rpc_clnt_xprt_switch_add_xprt sunrpc
 alias symbol:kvm_rebooting kvm
+alias symbol:nvme_fc_rcv_ls_req nvme_fc
 alias symbol:ZSTD_copyCCtx zstd_compress
 alias symbol:__tracepoint_mlx5_fs_add_rule mlx5_core
 alias symbol:nf_conntrack_locks nf_conntrack
@@ -738,6 +745,7 @@ alias symbol:nfs_pgio_current_mirror nfs
 alias symbol:cryptd_free_ahash cryptd
 alias symbol:usb_hid_driver usbhid
 alias symbol:vfio_add_group_dev vfio
+alias symbol:nvme_fc_set_remoteport_devloss nvme_fc
 alias symbol:rdma_restrack_parent_name ib_core
 alias symbol:snd_oss_info_register snd
 alias symbol:ib_modify_wq ib_core
@@ -774,6 +782,7 @@ alias symbol:rpsrc_vpush_vpull_confirm rodsp_ep
 alias symbol:xt_compat_target_from_user x_tables
 alias symbol:hid_report_raw_event hid
 alias symbol:nf_conntrack_in nf_conntrack
+alias symbol:nvmf_get_address nvme_fabrics
 alias symbol:__tracepoint_kvm_inj_virq kvm
 alias symbol:usb_of_get_companion_dev usb_common
 alias symbol:usb_serial_generic_write usbserial
@@ -809,6 +818,7 @@ alias symbol:qed_put_fcoe_ops qed
 alias symbol:register_ip_vs_scheduler ip_vs
 alias symbol:kvm_slot_page_track_add_page kvm
 alias symbol:nf_conntrack_helper_register nf_conntrack
+alias symbol:__SCT__tp_func_syno_nfsd4_dispatch nfsd
 alias symbol:fc_get_event_number scsi_transport_fc
 alias symbol:__nf_conntrack_helper_find nf_conntrack
 alias symbol:mlx5_put_uars_page mlx5_core
@@ -1125,7 +1135,6 @@ alias symbol:nf_nat_packet nf_nat
 alias symbol:ib_find_cached_pkey ib_core
 alias symbol:rdma_node_get_transport ib_core
 alias symbol:svc_print_addr sunrpc
-alias symbol:__auxiliary_driver_register auxiliary
 alias symbol:cache_destroy_net sunrpc
 alias symbol:vhost_init_device_iotlb vhost
 alias symbol:usb_anchor_empty usbcore
@@ -1134,6 +1143,7 @@ alias symbol:nfs_release_request nfs
 alias symbol:usbnet_generic_cdc_bind cdc_ether
 alias symbol:nfs_add_or_obtain nfs
 alias symbol:iscsi_suspend_queue libiscsi
+alias symbol:nvme_fc_unregister_remoteport nvme_fc
 alias symbol:xfrm6_tunnel_alloc_spi xfrm6_tunnel
 alias symbol:__SCT__tp_func_kvm_msr kvm
 alias symbol:ip6_route_lookup ipv6
@@ -1305,6 +1315,7 @@ alias symbol:__traceiter_mlx5_fs_del_rule mlx5_core
 alias symbol:rpc_clone_client_set_auth sunrpc
 alias symbol:rpsink_ioperf_snprintf rodsp_ep
 alias symbol:vxlan_fdb_replay vxlan
+alias symbol:nvmf_reg_read32 nvme_fabrics
 alias symbol:rpsrc_perf_get rodsp_ep
 alias symbol:__SCK__tp_func_mlx5_fs_del_fte mlx5_core
 alias symbol:mlx4_get_parav_qkey mlx4_core
@@ -1514,6 +1525,7 @@ alias symbol:mlx4_phys_to_slaves_pport_actv mlx4_core
 alias symbol:nf_ct_iterate_destroy nf_conntrack
 alias symbol:nfs_wait_client_init_complete nfs
 alias symbol:ip_vs_proto_data_get ip_vs
+alias symbol:nvmf_should_reconnect nvme_fabrics
 alias symbol:nfs_show_devname nfs
 alias symbol:usbnet_unlink_rx_urbs usbnet
 alias symbol:mlx5_query_hca_vport_pkey mlx5_core
@@ -1545,6 +1557,7 @@ alias symbol:kvm_cpu_get_interrupt kvm
 alias symbol:ibdev_alert ib_core
 alias symbol:locks_in_grace grace
 alias symbol:xdr_stream_decode_opaque_dup sunrpc
+alias symbol:__SCT__tp_func_syno_nfsd_dispatch nfsd
 alias symbol:kvm_find_cpuid_entry kvm
 alias symbol:rdma_put_gid_attr ib_core
 alias symbol:ib_query_port ib_core
@@ -1597,7 +1610,6 @@ alias symbol:kvm_io_bus_get_dev kvm
 alias symbol:kvm_complete_insn_gp kvm
 alias symbol:snd_ecards_limit snd
 alias symbol:_copy_from_pages sunrpc
-alias symbol:auxiliary_driver_unregister auxiliary
 alias symbol:snd_pcm_hw_param_value snd_pcm
 alias symbol:snd_timer_new snd_timer
 alias symbol:usb_driver_claim_interface usbcore
@@ -2043,7 +2055,6 @@ alias symbol:kvm_get_kvm kvm
 alias symbol:mlx5_lag_is_roce mlx5_core
 alias symbol:snd_unregister_device snd
 alias symbol:put_nfs_open_context nfs
-alias symbol:__auxiliary_device_add auxiliary
 alias symbol:nf_ct_extend_register nf_conntrack
 alias symbol:rdma_addr_size_kss ib_core
 alias symbol:usb_block_urb usbcore
@@ -2053,6 +2064,7 @@ alias symbol:__kvm_apic_update_irr kvm
 alias symbol:rdma_set_ib_path rdma_cm
 alias symbol:ipt_register_table ip_tables
 alias symbol:ib_get_net_dev_by_params ib_core
+alias symbol:nvmf_free_options nvme_fabrics
 alias symbol:iscsit_aborted_task iscsi_target_mod
 alias symbol:ehci_hub_control ehci_hcd
 alias symbol:fuse_conn_put fuse
@@ -2269,6 +2281,7 @@ alias symbol:odx_register_blun_token_read target_core_mod
 alias symbol:async_xor_offs async_xor
 alias symbol:mlx5_query_nic_vport_mtu mlx5_core
 alias symbol:nf_ct_kill_acct nf_conntrack
+alias symbol:__tracepoint_syno_nfsd_dispatch nfsd
 alias symbol:rdma_restrack_get ib_core
 alias symbol:rdma_restrack_put ib_core
 alias symbol:kvm_lapic_set_eoi kvm
@@ -2339,6 +2352,7 @@ alias symbol:kvm_is_linear_rip kvm
 alias symbol:send_implementation_id nfs
 alias symbol:kvm_apic_write_nodecode kvm
 alias symbol:nfs4_client_id_uniquifier nfs
+alias symbol:nvme_fc_rescan_remoteport nvme_fc
 alias symbol:ib_device_put ib_core
 alias symbol:iscsit_stop_dataout_timer iscsi_target_mod
 alias symbol:kvm_cpu_caps kvm
@@ -2355,6 +2369,7 @@ alias symbol:mlx4_find_cached_vlan mlx4_core
 alias symbol:snd_pcm_format_set_silence snd_pcm
 alias symbol:ib_alloc_xrcd_user ib_core
 alias symbol:nfs_fattr_init nfs
+alias symbol:nvme_fc_register_remoteport nvme_fc
 alias symbol:vhost_chr_read_iter vhost
 alias symbol:nf_conntrack_helpers_register nf_conntrack
 alias symbol:__SCT__tp_func_mlx5_fs_add_ft mlx5_core
@@ -2569,6 +2584,7 @@ alias symbol:rdma_rw_ctx_wrs ib_core
 alias symbol:rpsink_flag_set rodsp_ep
 alias symbol:nf_nat_helper_register nf_conntrack
 alias symbol:xdr_decode_word sunrpc
+alias symbol:__SCK__tp_func_syno_nfsd_dispatch nfsd
 alias symbol:mlx5_db_free mlx5_core
 alias symbol:nfs_debug sunrpc
 alias symbol:sha256_final libsha256
@@ -2644,6 +2660,7 @@ alias symbol:snd_rawmidi_transmit snd_rawmidi
 alias symbol:hidinput_find_field hid
 alias symbol:ibdev_emerg ib_core
 alias symbol:ib_create_cm_id ib_cm
+alias symbol:__tracepoint_syno_nfsd4_dispatch nfsd
 alias symbol:ib_send_cm_dreq ib_cm
 alias symbol:ip6_push_pending_frames ipv6
 alias symbol:mlx5_query_hca_vport_gid mlx5_core
@@ -2805,7 +2822,6 @@ alias symbol:nf_conntrack_expect_lock nf_conntrack
 alias symbol:xdr_read_pages sunrpc
 alias symbol:aio_alloc rodsp_ep
 alias symbol:ib_post_send_mad ib_core
-alias symbol:auxiliary_find_device auxiliary
 alias symbol:kvm_hv_assist_page_enabled kvm
 alias symbol:snd_rawmidi_receive snd_rawmidi
 alias symbol:kvm_spurious_fault kvm
@@ -2835,6 +2851,7 @@ alias symbol:rpcauth_unwrap_resp_decode sunrpc
 alias symbol:svc_generic_init_request sunrpc
 alias symbol:usbip_in_eh usbip_core
 alias symbol:snd_usbmidi_input_start snd_usbmidi_lib
+alias symbol:nvmf_reg_write32 nvme_fabrics
 alias symbol:register_snap_client psnap
 alias symbol:mlx5_core_create_cq mlx5_core
 alias symbol:fuse_get_unique fuse
@@ -2864,6 +2881,7 @@ alias symbol:unregister_ip_vs_pe ip_vs
 alias symbol:mlx4_release_eq mlx4_core
 alias symbol:target_unregister_template target_core_mod
 alias symbol:dm_suspended dm_mod
+alias symbol:nvmf_reg_read64 nvme_fabrics
 alias symbol:simd_aead_create_compat crypto_simd
 alias symbol:usb_hcd_start_port_resume usbcore
 alias symbol:ibnl_put_msg ib_core
@@ -2884,6 +2902,7 @@ alias symbol:__usb_get_extra_descriptor usbcore
 alias symbol:xt_replace_table x_tables
 alias symbol:async_raid6_2data_recov async_raid6_recov
 alias symbol:kvm_get_cr8 kvm
+alias symbol:nvmf_connect_io_queue nvme_fabrics
 alias symbol:be_roce_unregister_driver be2net
 alias symbol:iscsit_allocate_cmd iscsi_target_mod
 alias symbol:mlx5_lag_is_active mlx5_core
@@ -3240,6 +3259,7 @@ alias symbol:__SCT__tp_func_nfs_fsync_enter nfs
 alias symbol:snd_ctl_unregister_ioctl snd
 alias symbol:fat_update_time fat
 alias symbol:kvm_vcpu_is_reset_bsp kvm
+alias symbol:__traceiter_syno_nfsd4_dispatch nfsd
 alias symbol:ib_process_cq_direct ib_core
 alias symbol:crc_ccitt_table crc_ccitt
 alias symbol:dm_bufio_client_destroy dm_bufio
@@ -3248,6 +3268,7 @@ alias symbol:dm_exception_store_create dm_snapshot
 alias symbol:gss_pseudoflavor_to_service auth_rpcgss
 alias symbol:mlx5_set_port_prio_tc mlx5_core
 alias symbol:snd_info_create_module_entry snd
+alias symbol:__traceiter_syno_nfsd_dispatch nfsd
 alias symbol:ip6_sk_update_pmtu ipv6
 alias symbol:rdma_modify_ah ib_core
 alias symbol:ip_set_nfnl_put ip_set

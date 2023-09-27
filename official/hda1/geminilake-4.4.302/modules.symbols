@@ -2196,6 +2196,7 @@ alias symbol:nfs_umount_begin nfs
 alias symbol:odx_register_blun_token_read target_core_mod
 alias symbol:xxh32_update xxhash
 alias symbol:drm_mode_config_helper_suspend drm_kms_helper
+alias symbol:__tracepoint_syno_nfsd_dispatch nfsd
 alias symbol:drm_property_create_blob drm
 alias symbol:kvm_lapic_set_eoi kvm
 alias symbol:xt_check_match x_tables
@@ -2540,6 +2541,7 @@ alias symbol:rpsink_ready_count rodsp_ep
 alias symbol:snd_hda_codec_get_pin_target snd_hda_codec
 alias symbol:snd_rawmidi_transmit snd_rawmidi
 alias symbol:hidinput_find_field hid
+alias symbol:__tracepoint_syno_nfsd4_dispatch nfsd
 alias symbol:ip6_push_pending_frames ipv6
 alias symbol:snd_pcm_notify snd_pcm
 alias symbol:fill_inquiry_response usb_storage

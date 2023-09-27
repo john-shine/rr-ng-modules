@@ -66,6 +66,7 @@ cls_fw.ko:
 cryptd.ko:
 gre.ko:
 udp_tunnel.ko:
+mpt3sas_v2.ko:
 dm-snapshot.ko: dm-bufio.ko dm-mod.ko
 cifs.ko:
 leds-atmega1608.ko:

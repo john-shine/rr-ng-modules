@@ -1438,6 +1438,7 @@ alias symbol:nf_ct_expect_related_report nf_conntrack
 alias symbol:nfs_umount_begin nfs
 alias symbol:odx_register_blun_token_read target_core_mod
 alias symbol:xxh32_update xxhash
+alias symbol:__tracepoint_syno_nfsd_dispatch nfsd
 alias symbol:xt_check_match x_tables
 alias symbol:ip_tunnel_encap_add_ops ip_tunnel
 alias symbol:snapshot_for_lunbackup target_core_mod
@@ -1669,6 +1670,7 @@ alias symbol:nfnetlink_alloc_skb nfnetlink
 alias symbol:rpsink_ready_count rodsp_ep
 alias symbol:snd_rawmidi_transmit snd_rawmidi
 alias symbol:hidinput_find_field hid
+alias symbol:__tracepoint_syno_nfsd4_dispatch nfsd
 alias symbol:ip6_push_pending_frames ipv6
 alias symbol:snd_pcm_notify snd_pcm
 alias symbol:virtio_device_restore virtio

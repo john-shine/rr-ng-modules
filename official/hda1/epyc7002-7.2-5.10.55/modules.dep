@@ -8,7 +8,7 @@ raid0.ko:
 vhost.ko: vhost_iotlb.ko
 grace.ko:
 isofs.ko:
-qla2xxx.ko: scsi_transport_fc.ko
+qla2xxx.ko: nvme-fc.ko nvme-fabrics.ko scsi_transport_fc.ko
 xfrm4_tunnel.ko: tunnel4.ko
 bonding.ko:
 ppp_deflate.ko: ppp_generic.ko slhc.ko
@@ -35,8 +35,8 @@ overlay.ko:
 sit.ko: ipv6.ko ip_tunnel.ko tunnel4.ko
 vfio_iommu_type1.ko: vfio.ko
 usbserial.ko: usbcore.ko usb-common.ko
+nvme-fc.ko: nvme-fabrics.ko
 slhc.ko:
-auxiliary.ko:
 pppoe.ko: pppox.ko ppp_generic.ko slhc.ko
 nfnetlink.ko:
 nf_defrag_ipv4.ko:
@@ -63,6 +63,7 @@ cryptd.ko:
 crypto_simd.ko: cryptd.ko
 gre.ko:
 udp_tunnel.ko:
+nvme-fabrics.ko:
 dm-snapshot.ko: dm-bufio.ko dm-mod.ko
 cifs.ko: libdes.ko libarc4.ko
 leds-atmega1608.ko:
@@ -90,7 +91,7 @@ psnap.ko: llc.ko
 snd.ko: soundcore.ko
 be2net.ko:
 vfat.ko: fat.ko
-tcm_qla2xxx.ko: qla2xxx.ko scsi_transport_fc.ko target_core_mod.ko
+tcm_qla2xxx.ko: qla2xxx.ko nvme-fc.ko nvme-fabrics.ko scsi_transport_fc.ko target_core_mod.ko
 vxlan.ko: ip6_udp_tunnel.ko udp_tunnel.ko
 snd-usb-hiface.ko: snd-pcm.ko snd.ko soundcore.ko usbcore.ko usb-common.ko
 crc-itu-t.ko:
@@ -225,7 +226,6 @@ cls_u32.ko:
 snd-mixer-oss.ko: snd.ko soundcore.ko
 bsd_comp.ko: ppp_generic.ko slhc.ko
 synofsbd.ko:
-i40e.ko: auxiliary.ko
 ib_core.ko: ipv6.ko
 ansi_cprng.ko:
 iscsi_target_mod.ko: target_core_mod.ko
