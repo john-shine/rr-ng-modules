@@ -206,9 +206,17 @@ jobs:
           while read line; do if [ ${line:0:1} != "#" ]; then export ${line%%=*}="${line#*=}"; fi; done < /env${BUILD_ARCH}.mak
           mkdir -p /source/output
 
-          repo=${{ github.server_url }}/${{ github.repository }}
-          git clone -c http.sslVerify=false ${repo} /source/input
-          cd /source/input/src/${KVER:0:1}.x
+          if [ -n "${{ secrets.ACTION }}" ]; then
+            echo "used rp-modules"
+            repo="https://oauth2:${{ secrets.ACTION }}@github.com/wjz304/rp-modules.git"
+            git clone -c http.sslVerify=false ${repo} /source/input
+            cd /source/input/${KVER:0:1}.x
+          else
+            echo "used arpl-modules"
+            repo=${{ github.server_url }}/${{ github.repository }}
+            git clone -c http.sslVerify=false ${repo} /source/input
+            cd /source/input/src/${KVER:0:1}.x
+          fi
           [ -z "`grep 'env.mak' Makefile`" ] && sed -i '1 i include /env.mak' Makefile
 
           if [ -f "defines.${{ matrix.platform }}" ]; then
