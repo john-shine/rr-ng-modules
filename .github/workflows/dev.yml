@@ -15,7 +15,7 @@
 #   - version: "7.2"
 #     platform: "broadwell"
 
-name: Build modules main
+name: Build modules dev
 
 on:
   release:
@@ -133,6 +133,7 @@ jobs:
         with:
           repository: wjz304/rp-modules
           token: ${{ secrets.ACTION }}
+          ref: feat/virtio-console
           path: rp-modules
 
       - name: Init Env
