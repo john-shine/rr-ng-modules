@@ -22,15 +22,6 @@ on:
     types: [published]
 
   workflow_dispatch:
-    inputs:
-      version:
-        description: "format %y.%-m.$i or auto"
-        required: false
-        type: string
-      prerelease:
-        description: "pre release"
-        default: false
-        type: boolean
 
 jobs:
   build:
@@ -176,11 +167,11 @@ jobs:
           fi
 
           echo "copy official modules"
-          OM=(cpufreq_performance i915 processor mlx4_core mlx4_en mlx4_ib mlx5_ib mlx5_core ehci-hcd ehci-pci uhci-hcd xhci-hcd xhci-pci)
+          OM=(cpufreq_performance i915.ko processor.ko mlx4_core.ko mlx4_en.ko mlx4_ib.ko mlx5_ib.ko mlx5_core.ko ehci-hcd.ko ehci-pci.ko uhci-hcd.ko xhci-hcd.ko xhci-pci.ko)
           if echo ${F} | grep -qE "apollolake|braswell|broadwell|broadwellnk|broadwellnkv2|broadwellntbap|bromolow|denverton|geminilake|grantley|purley"; then
-            OM+=(kvm-intel)
+            OM+=(kvm-intel.ko)
           else
-            OM+=(kvm-amd)
+            OM+=(kvm-amd.ko)
           fi
           for M in ${OM[@]}; do
             function _copydepends() {
@@ -192,7 +183,7 @@ jobs:
                 done
               fi
             }
-            _copydepends "${M}.ko"
+            _copydepends "${M}"
           done
 
           echo "copy 3rd modules"
@@ -200,15 +191,22 @@ jobs:
 
           echo "check depends"
           for M in `ls ${{ github.workspace }}/source/output`; do
-            depends=(`modinfo "${{ github.workspace }}/source/output/${M}" | grep depends: | awk -F: '{print $2}' | awk '$1=$1' | sed 's/,/ /g'`)
-            if [ ${#depends[*]} -gt 0 ]; then
-              for k in ${depends[@]}; do
-                if [ ! -f "${{ github.workspace }}/source/output/${k}.ko" ]; then
-                  [ -f "${OFFICIAL_PATH}/${k}.ko" ] && FLAG=O || FLAG=X
-                  echo "[W][${FLAG}] '${{ matrix.platform }}-${{ env.KVER }}' - '${M}' depends '${k}' does not exist."
+            function _copydepends() {
+              if [ ! -f "${{ github.workspace }}/source/output/${1}" ] && [ ! -f "${OFFICIAL_PATH/hda1/rd}/${1}" ]; then
+                if [ -f "${OFFICIAL_PATH}/${1}" ]; then
+                  sudo cp -f "${OFFICIAL_PATH}/${1}" "${{ github.workspace }}/source/output"
+                else
+                  echo "[E] '${{ matrix.platform }}-${{ env.KVER }}' - '${M}' depends '${1}' does not exist."
                 fi
-              done
-            fi
+              fi
+              depends=(`modinfo "${{ github.workspace }}/source/output/${1}" | grep depends: | awk -F: '{print $2}' | awk '$1=$1' | sed 's/,/ /g'`)
+              if [ ${#depends[*]} -gt 0 ]; then
+                for k in ${depends[@]}; do
+                  _copydepends "${k}.ko"
+                done
+              fi
+            }
+            _copydepends "${M}"
           done
           if [ "${{ matrix.platform }}" = "epyc7002" ]; then
             tar caf ${{ github.workspace }}/source/${{ matrix.platform }}-${{ matrix.version }}-${{ env.KVER }}.tgz -C ${{ github.workspace }}/source/output .
@@ -271,55 +269,3 @@ jobs:
           name: modules
           path: |
             firmware.tgz
-
-  release:
-    runs-on: ubuntu-latest
-    needs: firmware
-    steps:
-      - name: Checkout
-        uses: actions/checkout@main
-
-      - name: Calculate version
-        run: |
-          # Calculate version
-          VERSION=""
-          if [[ "${{ github.event_name }}" =~ ^(push|release)$ && "${{ github.ref_type }}" == 'tag' ]]; then
-            VERSION="${{ github.ref_name }}"
-          elif [ -n "${{ inputs.version }}" ]; then
-            if [ "`echo ${{ inputs.version }} | cut -d '.' -f 1,2`" = "`date +'%y.%-m'`" ]; then
-              VERSION="${{ inputs.version }}"
-            else
-              LATEST_TAG="`curl -skL "https://api.github.com/repos/${{ github.repository }}/releases" | jq -r ".[0].tag_name" 2>/dev/null`"
-              if [ -n "${LATEST_TAG}" -a "`echo ${LATEST_TAG} | cut -d '.' -f 1,2`" = "`date +'%y.%-m'`" ]; then  # format %y.%-m.$i
-                VERSION="`echo ${LATEST_TAG} | awk -F '.' '{$3=$3+1}1' OFS='.'`"
-              else
-                VERSION="`date +'%y.%-m'`.0"
-              fi
-            fi
-          else
-            VERSION=""
-          fi
-
-          echo "VERSION: ${VERSION}"
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
-
-      - name: download to artifacts
-        if: env.VERSION != ''
-        uses: actions/download-artifact@v3
-        with:
-          name: modules
-          path: ./modules
-
-      - name: Zip modules
-        if: env.VERSION != ''
-        run: |
-          echo "${{ env.VERSION }}" > "modules/VERSION"
-          zip -9 modules.zip -j modules/*
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: env.VERSION != ''
-        with:
-          tag_name: ${{ env.VERSION }}
-          prerelease: ${{ inputs.prerelease }}
-          files: modules.zip
