@@ -158,6 +158,7 @@ jobs:
 
       - name: Tar to Artifacts
         run: |
+          set -x
           if [ "${{ matrix.platform }}" = "epyc7002" ]; then
             OFFICIAL_PATH="${{ github.workspace }}/rp-modules/official/hda1/${{ matrix.platform }}-${{ matrix.version }}-${{ env.KVER }}"
             PARTY3RD_PATH="${{ github.workspace }}/thirdparty/${{ matrix.platform }}-${{ matrix.version }}-${{ env.KVER }}"
