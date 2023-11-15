@@ -273,11 +273,16 @@ jobs:
                   echo "[E] '${{ matrix.platform }}-${{ env.KVER }}' - '${M}' depends '${1}' does not exist."
                 fi
               fi
-              depends=(`modinfo "${{ github.workspace }}/source/output/${1}" | grep depends: | awk -F: '{print $2}' | awk '$1=$1' | sed 's/,/ /g'`)
-              if [ ${#depends[*]} -gt 0 ]; then
-                for k in ${depends[@]}; do
-                  _copydepends "${k}.ko"
-                done
+              D=""
+              [ -z "${D}" -a -f "${{ github.workspace }}/source/output/${1}" ] && D="${{ github.workspace }}/source/output/${1}"
+              [ -z "${D}" -a -f "${OFFICIAL_PATH/hda1/rd}/${1}" ] && D="${OFFICIAL_PATH/hda1/rd}/${1}"
+              if [ -n "${D}" ]; then
+                depends=(`modinfo "${D}" | grep depends: | awk -F: '{print $2}' | awk '$1=$1' | sed 's/,/ /g'`)
+                if [ ${#depends[*]} -gt 0 ]; then
+                  for k in ${depends[@]}; do
+                    _copydepends "${k}.ko"
+                  done
+                fi
               fi
             }
             _copydepends "${M}"
