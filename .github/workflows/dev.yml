@@ -54,9 +54,9 @@ jobs:
           # checkout 6.2.4
           - version: 6.2
             platform: geminilake
-          ## checkout 6.2.4
-          #- version: 6.2
-          #  platform: grantley
+          # checkout 6.2.4
+          - version: 6.2
+            platform: grantley
           # checkout 6.2.4
           - version: 6.2
             platform: purley
@@ -84,8 +84,8 @@ jobs:
             platform: epyc7002
           - version: 7.1
             platform: geminilake
-          #- version: 7.1
-          #  platform: grantley
+          - version: 7.1
+            platform: grantley
           - version: 7.1
             platform: purley
           - version: 7.1
@@ -113,8 +113,8 @@ jobs:
             platform: epyc7002
           - version: 7.2
             platform: geminilake
-          #- version: 7.2
-          #  platform: grantley
+          - version: 7.2
+            platform: grantley
           - version: 7.2
             platform: purley
           - version: 7.2
