@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2022 Ing <https://github.com/wjz304>
+# Copyright (C) 2022 Ing <https://github.com/john-shine>
 #
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
@@ -131,7 +131,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
         with:
-          repository: wjz304/rp-modules
+          repository: john-shine/rp-modules
           token: ${{ secrets.ACTION }}
           path: rp-modules
 
